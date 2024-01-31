@@ -12,8 +12,7 @@ function Product({ name, imgSrc, description, price, addToCart, isInCart }) {
           {isInCart ? (
             <button
               type="button"
-              onClick={addToCart}
-              className="btn btn-primary"
+              className="btn btn-primary-outline"
               disabled
             >
               Already in cart
