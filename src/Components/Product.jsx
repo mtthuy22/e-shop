@@ -1,6 +1,6 @@
-import React from 'react'; 
+import React from "react";
 
-function Product({ name, imgSrc, description, price, addToCart }) {
+function Product({ name, imgSrc, description, price, addToCart, isInCart }) {
   return (
     <>
       <div className="card mx-2">
@@ -9,7 +9,24 @@ function Product({ name, imgSrc, description, price, addToCart }) {
           <h5 className="card-title">{name}</h5>
           <p className="card-text">{description}</p>
           <p className="card-text">{price} EUR</p>
-          <button type="button" onClick={addToCart} className="btn btn-primary">Add to cart</button>
+          {isInCart ? (
+            <button
+              type="button"
+              onClick={addToCart}
+              className="btn btn-primary"
+              disabled
+            >
+              Already in cart
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={addToCart}
+              className="btn btn-primary"
+            >
+              Add to cart
+            </button>
+          )}
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
 import React from "react";
 import Product from "./Product";
 
-function ProductList({ products, addToCart }) {
+function ProductList({ products, addToCart, isInCart }) {
   return (
     <div className="d-flex flex-row mx-5">
       {products.map((product) => (
@@ -12,6 +12,7 @@ function ProductList({ products, addToCart }) {
           description={product.description}
           price={product.price}
           addToCart={() => addToCart(product)}
+          isInCart={isInCart(product)}
         ></Product>
       ))}
     </div>
