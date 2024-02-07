@@ -1,8 +1,9 @@
 import React from "react";
 import Product from "./Product";
 
-function ProductList({ products, addToCart, isInCart }) {
+function ProductList({ products, addToCart, isInCart, orderComplete }) {
   return (
+    !orderComplete && (
     <div className="d-flex flex-row mx-5">
       {products.map((product) => (
         <Product
@@ -16,6 +17,7 @@ function ProductList({ products, addToCart, isInCart }) {
         ></Product>
       ))}
     </div>
+    )
   );
 }
 

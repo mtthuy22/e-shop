@@ -5,6 +5,7 @@ import testProducts from "./data";
 
 function App() {
   const [cart, setCart] = useState([]);
+  const [orderComplete, setOrderComplete] = useState(false);
 
   function addToCart(product) {
     setCart([...cart, product]);
@@ -17,15 +18,25 @@ function App() {
   function removeFromCart(product) {
     setCart(cart.filter((item) => item !== product));
   }
-
+  
+  function resetCart() {
+    setCart([]);
+  }
   return (
     <div className="App">
-      <Cart cart={cart} removeFromCart={removeFromCart} />
+      <Cart
+        cart={cart}
+        removeFromCart={removeFromCart}
+        orderComplete={orderComplete}
+        setOrderComplete={setOrderComplete}
+        resetCart = {resetCart}
+      />
       <ProductList
         className="mx-auto"
         products={testProducts}
         addToCart={addToCart}
         isInCart={isInCart}
+        orderComplete = {orderComplete}
       ></ProductList>
     </div>
   );

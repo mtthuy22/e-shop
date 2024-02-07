@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import "./Cart.css";
 
-function Cart({ cart, removeFromCart }) {
+function Cart({
+  cart,
+  removeFromCart,
+  orderComplete,
+  setOrderComplete,
+  resetCart,
+}) {
   const [checkOut, setCheckOut] = useState(false);
+
+  function toComplete() {
+    setOrderComplete(true);
+  }
 
   function toCheckOut() {
     setCheckOut(true);
@@ -11,11 +21,21 @@ function Cart({ cart, removeFromCart }) {
   function totalPrice() {
     return cart.reduce((total, item) => total + item.price, 0).toFixed(2);
   }
+
+  function resetShop() {
+    setOrderComplete(false);
+    setCheckOut(false);
+    resetCart();
+  }
   return (
     <>
       <div className="cart bg-secondary text-white mb-5 mx-5 mt-2 py-3 px-3">
         {checkOut ? (
-          <p className="text-center">Your order summary:</p>
+          <p className="text-center">
+            {orderComplete
+              ? "Your order has been completed."
+              : "Your order summary"}
+          </p>
         ) : (
           <p className="text-center">
             {cart.length ? "Currently in cart" : "Your cart is empty"}
@@ -47,21 +67,27 @@ function Cart({ cart, removeFromCart }) {
             </p>
 
             {checkOut ? (
-              <div>
-                <label htmlFor="email" className="form-label">
-                 Send order to: 
-                </label>
-                <input
-                  type="email"
-                  className="form-control w-25"
-                  id="email"
-                  placeholder="name@example.com"
-                  required
-                />
-                <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
-              </div>
+              !orderComplete && (
+                <form>
+                  <label for="email" className="form-label">
+                    Send order to:
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control w-25"
+                    id="email"
+                    placeholder="name@example.com"
+                    required
+                  />
+                  <button
+                    onClick={() => toComplete()}
+                    type="submit"
+                    className="btn btn-primary"
+                  >
+                    Submit
+                  </button>
+                </form>
+              )
             ) : (
               <button onClick={() => toCheckOut()} className="btn btn-dark">
                 Check-out
@@ -69,6 +95,7 @@ function Cart({ cart, removeFromCart }) {
             )}
           </div>
         )}
+        {orderComplete && <button type="button" className="btn btn-primary" onClick={() => resetShop()}>Go back to shop</button>}
       </div>
     </>
   );
