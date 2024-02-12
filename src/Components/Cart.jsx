@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Cart.css";
+import CheckoutForm from "./CheckoutForm";
 
 function Cart({
   cart,
@@ -29,7 +30,7 @@ function Cart({
   }
   return (
     <>
-      <div className="cart bg-secondary text-white mb-5 mx-5 mt-2 py-3 px-3">
+      <div className="cart bg-secondary bg-opacity-75 text-white mb-5 mx-5 mt-2 py-3 px-3">
         {checkOut ? (
           <p className="text-center">
             {orderComplete
@@ -68,25 +69,7 @@ function Cart({
 
             {checkOut ? (
               !orderComplete && (
-                <form>
-                  <label for="email" className="form-label">
-                    Send order to:
-                  </label>
-                  <input
-                    type="email"
-                    className="form-control w-25"
-                    id="email"
-                    placeholder="name@example.com"
-                    required
-                  />
-                  <button
-                    onClick={() => toComplete()}
-                    type="submit"
-                    className="btn btn-primary"
-                  >
-                    Submit
-                  </button>
-                </form>
+                <CheckoutForm toComplete = {toComplete}></CheckoutForm>
               )
             ) : (
               <button onClick={() => toCheckOut()} className="btn btn-dark">

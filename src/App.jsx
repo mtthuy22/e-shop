@@ -22,6 +22,7 @@ function App() {
   function resetCart() {
     setCart([]);
   }
+  
   return (
     <div className="App">
       <Cart
