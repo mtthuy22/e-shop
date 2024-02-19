@@ -1,6 +1,8 @@
 import React from "react";
+import Button from "./Button";
 
 function Product({ name, imgSrc, description, price, addToCart, isInCart }) {
+  const isDisabled = isInCart;
   return (
     <>
       <div className="card mx-2">
@@ -10,21 +12,19 @@ function Product({ name, imgSrc, description, price, addToCart, isInCart }) {
           <p className="card-text">{description}</p>
           <p className="card-text">{price} EUR</p>
           {isInCart ? (
-            <button
+            <Button
               type="button"
-              className="btn btn-primary-outline"
-              disabled
-            >
-              Already in cart
-            </button>
+              btnColor="primary-outline"
+              disabled={isDisabled}
+              text="Already in cart"
+            ></Button>
           ) : (
-            <button
+            <Button
               type="button"
               onClick={addToCart}
-              className="btn btn-primary"
-            >
-              Add to cart
-            </button>
+              btnColor="primary"
+              text="Add to cart"
+            ></Button>
           )}
         </div>
       </div>

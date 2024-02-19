@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Button from "./Button";
 
 function CheckoutForm({ toComplete }) {
   const [email, setEmail] = useState("");
@@ -12,6 +13,12 @@ function CheckoutForm({ toComplete }) {
     setEmail(input);
     setIsValidEmail(emailRegex.test(input));
   }
+
+  useEffect(() => {
+    if (validEmail) {
+      setDisplayValidation(true);
+    }
+  }, [validEmail]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -49,9 +56,9 @@ function CheckoutForm({ toComplete }) {
           ""
         )}
 
-        <button type="submit" className="btn btn-primary">
+        <Button type="submit" btnColor="primary" text="Submit">
           Submit
-        </button>
+        </Button>
       </form>
     </>
   );

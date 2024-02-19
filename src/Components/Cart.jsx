@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Cart.css";
 import CheckoutForm from "./CheckoutForm";
+import Button from "./Button";
 
 function Cart({
   cart,
@@ -69,16 +70,28 @@ function Cart({
 
             {checkOut ? (
               !orderComplete && (
-                <CheckoutForm toComplete = {toComplete}></CheckoutForm>
+                <CheckoutForm toComplete={toComplete}></CheckoutForm>
               )
             ) : (
-              <button onClick={() => toCheckOut()} className="btn btn-dark">
+              <Button
+                onClick={() => toCheckOut()}
+                btnColor="dark"
+                type="button"
+                text="Check-out"
+              >
                 Check-out
-              </button>
+              </Button>
             )}
           </div>
         )}
-        {orderComplete && <button type="button" className="btn btn-primary" onClick={() => resetShop()}>Go back to shop</button>}
+        {orderComplete && (
+          <Button
+            type="button"
+            btnColor="primary"
+            text="Go back to shop"
+            onClick={() => resetShop()}
+          ></Button>
+        )}
       </div>
     </>
   );
