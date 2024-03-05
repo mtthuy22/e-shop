@@ -63,7 +63,7 @@ function Cart({
           ))}
         </ul>
         {cart.length > 0 && (
-          <div className="text-end">
+          <div className="text-start">
             <p className="text-uppercase fw-bold">
               <span>total</span>: {totalPrice()} EUR
             </p>

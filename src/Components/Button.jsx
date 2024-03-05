@@ -1,6 +1,6 @@
 import React from "react";
 
-function Button({ text, btnColor, type, onClick, disabled }) {
+function Button({ text, btnColor, type, onClick, disabled = false }) {
   return (
     <button
       type={type}

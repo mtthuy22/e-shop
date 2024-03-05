@@ -4,26 +4,46 @@ import Button from "./Button";
 
 function CheckoutForm({ toComplete }) {
   const [email, setEmail] = useState("");
-  const [validEmail, setIsValidEmail] = useState("");
   const [displayValidation, setDisplayValidation] = useState(false);
   let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
+  const [isError, setIsError] = useState(false);
+
+  const FORMSPARK_FORM_URL = "https://submit-form.com/GxG2xLB2F";
+  const isValid = emailRegex.test(email);
 
   function inputEmail(e) {
     let input = e.target.value;
     setEmail(input);
-    setIsValidEmail(emailRegex.test(input));
   }
 
   useEffect(() => {
-    if (validEmail) {
+    if (isValid) {
       setDisplayValidation(true);
     }
-  }, [validEmail]);
+  }, [isValid]);
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
     setDisplayValidation(true);
-    validEmail && toComplete();
+    setIsError(false);
+    if (isValid) {
+      try {
+        await fetch(FORMSPARK_FORM_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            email,
+          }),
+        });
+        toComplete();
+      } catch (error) {
+        console.log("error occured");
+        setIsError(true);
+      }
+    }
   }
 
   return (
@@ -35,9 +55,10 @@ function CheckoutForm({ toComplete }) {
         <input
           type="email"
           className={`form-control w-25 ${
-            displayValidation ? (validEmail ? "is-valid" : "is-invalid") : ""
+            displayValidation ? (isValid ? "is-valid" : "is-invalid") : "mb-2"
           }`}
           id="email"
+          name="email"
           value={email}
           placeholder="name@example.com"
           onChange={(e) => inputEmail(e)}
@@ -45,7 +66,7 @@ function CheckoutForm({ toComplete }) {
         />
 
         {displayValidation ? (
-          validEmail ? (
+          isValid ? (
             <div className="valid-feedback fw-bold text-start">Looks good!</div>
           ) : (
             <div className="invalid-feedback fw-bold text-start">
@@ -55,7 +76,7 @@ function CheckoutForm({ toComplete }) {
         ) : (
           ""
         )}
-
+        {isError && <p className="text-danger">Please check your connection</p>}
         <Button type="submit" btnColor="primary" text="Submit">
           Submit
         </Button>

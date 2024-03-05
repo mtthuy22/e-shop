@@ -18,11 +18,11 @@ function App() {
   function removeFromCart(product) {
     setCart(cart.filter((item) => item !== product));
   }
-  
+
   function resetCart() {
     setCart([]);
   }
-  
+
   return (
     <div className="App">
       <Cart
@@ -30,14 +30,14 @@ function App() {
         removeFromCart={removeFromCart}
         orderComplete={orderComplete}
         setOrderComplete={setOrderComplete}
-        resetCart = {resetCart}
+        resetCart={resetCart}
       />
       <ProductList
         className="mx-auto"
         products={testProducts}
         addToCart={addToCart}
         isInCart={isInCart}
-        orderComplete = {orderComplete}
+        orderComplete={orderComplete}
       ></ProductList>
     </div>
   );
