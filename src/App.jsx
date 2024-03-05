@@ -1,11 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProductList from "./Components/ProductList";
 import Cart from "./Components/Cart";
-import testProducts from "./data";
+import Button from "./Components/Button";
 
 function App() {
   const [cart, setCart] = useState([]);
   const [orderComplete, setOrderComplete] = useState(false);
+  const [products, setProducts] = useState([]);
+  const productsPerPage = 60;
+
+  const [loading, setLoading] = useState(false);
+  const [allProducts, setAllProducts] = useState(false);
+
+  useEffect(() => {
+    //fetchData();
+    console.log(2)
+  }, []);
+
+function fetchData() {
+      fetch(
+        `https://dummyjson.com/products?limit=${productsPerPage}&skip=${products.length}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setProducts((products) => [...products, ...data.products]);
+          if ([...products, ...data.products].length === 100){
+            setAllProducts(true)
+          }
+        });
+  }
 
   function addToCart(product) {
     setCart([...cart, product]);
@@ -33,12 +56,17 @@ function App() {
         resetCart={resetCart}
       />
       <ProductList
-        className="mx-auto"
-        products={testProducts}
+        products={products}
         addToCart={addToCart}
         isInCart={isInCart}
         orderComplete={orderComplete}
       ></ProductList>
+      <Button
+        text="Load more items"
+        disabled={allProducts}
+        btnColor={allProducts ? "primary-outline" : "primary"}
+        onClick={fetchData}
+      />
     </div>
   );
 }

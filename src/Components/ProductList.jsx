@@ -4,18 +4,20 @@ import Product from "./Product";
 function ProductList({ products, addToCart, isInCart, orderComplete }) {
   return (
     !orderComplete && (
-    <div className="d-flex flex-row mx-5">
-      {products.map((product) => (
-        <Product
-          key={product.id}
-          name={product.name}
-          imgSrc={product.image}
-          description={product.description}
-          price={product.price}
-          addToCart={() => addToCart(product)}
-          isInCart={isInCart(product)}
-        ></Product>
-      ))}
+    <div className="container mx-auto">
+      <div className="row row-cols-4">
+        {products.map((product) => (
+          <Product
+            key={product.id}
+            name={product.title}
+            imgSrc={product.thumbnail}
+            description={product.description}
+            price={product.price}
+            addToCart={() => addToCart(product)}
+            isInCart={isInCart(product)}
+          ></Product>
+        ))}
+      </div>
     </div>
     )
   );

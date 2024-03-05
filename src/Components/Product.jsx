@@ -2,10 +2,9 @@ import React from "react";
 import Button from "./Button";
 
 function Product({ name, imgSrc, description, price, addToCart, isInCart }) {
-  const isDisabled = isInCart;
   return (
     <>
-      <div className="card mx-2">
+      <div className="card col mb-2">
         <img src={imgSrc} className="card-img-top" alt={name} />
         <div className="card-body">
           <h5 className="card-title">{name}</h5>
@@ -15,7 +14,7 @@ function Product({ name, imgSrc, description, price, addToCart, isInCart }) {
             <Button
               type="button"
               btnColor="primary-outline"
-              disabled={isDisabled}
+              disabled={isInCart}
               text="Already in cart"
             ></Button>
           ) : (

@@ -31,7 +31,7 @@ function Cart({
   }
   return (
     <>
-      <div className="cart bg-secondary bg-opacity-75 text-white mb-5 mx-5 mt-2 py-3 px-3">
+      <div className="cart bg-secondary bg-opacity-75 text-white mb-5 py-3 px-3 container-fluid">
         {checkOut ? (
           <p className="text-center">
             {orderComplete
@@ -47,7 +47,7 @@ function Cart({
           {cart.map((item) => (
             <li className="list-group-item" key={item.id}>
               <span>
-                {item.name} - {item.price} EUR
+                {item.title} - {item.price} EUR
               </span>
 
               {!checkOut && (
