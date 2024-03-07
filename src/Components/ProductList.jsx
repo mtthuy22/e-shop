@@ -4,8 +4,7 @@ import Product from "./Product";
 function ProductList({ products, addToCart, isInCart, orderComplete }) {
   return (
     !orderComplete && (
-    <div className="container mx-auto">
-      <div className="row row-cols-4">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 mb-3">
         {products.map((product) => (
           <Product
             key={product.id}
@@ -18,7 +17,6 @@ function ProductList({ products, addToCart, isInCart, orderComplete }) {
           ></Product>
         ))}
       </div>
-    </div>
     )
   );
 }

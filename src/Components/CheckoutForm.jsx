@@ -49,21 +49,29 @@ function CheckoutForm({ toComplete }) {
   return (
     <>
       <form onSubmit={(e) => handleSubmit(e)} noValidate>
-        <label htmlFor="email" className="form-label">
+        <label htmlFor="email" className="form-label fw-semibold">
           Send order to:
         </label>
-        <input
-          type="email"
-          className={`form-control w-25 ${
-            displayValidation ? (isValid ? "is-valid" : "is-invalid") : "mb-2"
-          }`}
-          id="email"
-          name="email"
-          value={email}
-          placeholder="name@example.com"
-          onChange={(e) => inputEmail(e)}
-          required
-        />
+        <div className="row">
+          <div className="col-sm-4 col-md-3">
+            <input
+              type="email"
+              className={`form-control ${
+                displayValidation
+                  ? isValid
+                    ? "is-valid"
+                    : "is-invalid"
+                  : "mb-2"
+              }`}
+              id="email"
+              name="email"
+              value={email}
+              placeholder="name@example.com"
+              onChange={(e) => inputEmail(e)}
+              required
+            />
+          </div>
+        </div>
 
         {displayValidation ? (
           isValid ? (
@@ -77,6 +85,7 @@ function CheckoutForm({ toComplete }) {
           ""
         )}
         {isError && <p className="text-danger">Please check your connection</p>}
+
         <Button type="submit" btnColor="primary" text="Submit">
           Submit
         </Button>

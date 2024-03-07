@@ -9,25 +9,31 @@ function App() {
   const [products, setProducts] = useState([]);
   const productsPerPage = 60;
 
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
   const [allProducts, setAllProducts] = useState(false);
 
   useEffect(() => {
-    //fetchData();
-    console.log(2)
+    fetchData();
   }, []);
 
-function fetchData() {
+  async function fetchData() {
+    try {
+      setLoading(true);
       fetch(
         `https://dummyjson.com/products?limit=${productsPerPage}&skip=${products.length}`
       )
         .then((res) => res.json())
         .then((data) => {
-          setProducts((products) => [...products, ...data.products]);
-          if ([...products, ...data.products].length === 100){
-            setAllProducts(true)
+          setProducts([...products, ...data.products]);
+          if ([...products, ...data.products].length === data.total) {
+            setAllProducts(true);
           }
+          setLoading(false);
         });
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
   }
 
   function addToCart(product) {
@@ -55,18 +61,21 @@ function fetchData() {
         setOrderComplete={setOrderComplete}
         resetCart={resetCart}
       />
-      <ProductList
-        products={products}
-        addToCart={addToCart}
-        isInCart={isInCart}
-        orderComplete={orderComplete}
-      ></ProductList>
-      <Button
-        text="Load more items"
-        disabled={allProducts}
-        btnColor={allProducts ? "primary-outline" : "primary"}
-        onClick={fetchData}
-      />
+      <h1 className="text-center">Products store</h1>
+      <div className="container mb-3">
+        <ProductList
+          products={products}
+          addToCart={addToCart}
+          isInCart={isInCart}
+          orderComplete={orderComplete}
+        ></ProductList>
+        <Button
+          text={isLoading ? "Items are loading..." : "Load more items"}
+          disabled={allProducts || isLoading}
+          btnColor={allProducts ? "primary-outline" : "primary"}
+          onClick={fetchData}
+        />
+      </div>
     </div>
   );
 }
