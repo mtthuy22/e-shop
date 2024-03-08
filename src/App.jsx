@@ -8,15 +8,19 @@ function App() {
   const [orderComplete, setOrderComplete] = useState(false);
   const [products, setProducts] = useState([]);
   const productsPerPage = 60;
-
   const [isLoading, setLoading] = useState(true);
+  const [cartIsLoading, setCartIsLoading] = useState(true);
   const [allProducts, setAllProducts] = useState(false);
+  const user = Math.floor(Math.random() * 20 + 1);
+  //const user = 3;
 
   useEffect(() => {
+    //setTimeout(getCartData, 5000);
+    getCartData();
     fetchData();
   }, []);
 
-  async function fetchData() {
+  function fetchData() {
     try {
       setLoading(true);
       fetch(
@@ -36,16 +40,55 @@ function App() {
     }
   }
 
+  function updateCart(product, number) {
+    fetch(`https://dummyjson.com/carts/${user}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        merge: true,
+        products: [
+          {
+            id: product.id,
+            quantity: number,
+          },
+        ],
+      }),
+    })
+    .then(res => res.json)
+    .then(console.log)
+  }
+
+  function getCartData() {
+    try {
+      setCartIsLoading(true);
+      fetch(`https://dummyjson.com/carts/${user}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setCart(
+           cart => [...data.products, ...cart].filter(
+              (product, index, array) =>
+                array.findIndex((p) => p.id === product.id) === index
+            )
+          );
+          setCartIsLoading(false);
+        });
+    } catch (err) {
+      setCartIsLoading(false);
+    }
+  }
+
   function addToCart(product) {
     setCart([...cart, product]);
+    updateCart(product, 1);
   }
 
   function isInCart(product) {
-    return cart.includes(product);
+    return cart.some((cartItem) => cartItem.id === product.id);
   }
 
   function removeFromCart(product) {
     setCart(cart.filter((item) => item !== product));
+    updateCart(product, 0);
   }
 
   function resetCart() {
@@ -60,6 +103,7 @@ function App() {
         orderComplete={orderComplete}
         setOrderComplete={setOrderComplete}
         resetCart={resetCart}
+        cartIsLoading={cartIsLoading}
       />
       <h1 className="text-center">Products store</h1>
       <div className="container mb-3">

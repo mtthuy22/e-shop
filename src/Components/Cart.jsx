@@ -9,6 +9,7 @@ function Cart({
   orderComplete,
   setOrderComplete,
   resetCart,
+  cartIsLoading,
 }) {
   const [checkOut, setCheckOut] = useState(false);
 
@@ -33,17 +34,20 @@ function Cart({
     <>
       <div className="cart bg-secondary bg-opacity-75 text-white mb-5 py-4">
         <div className="container">
-          {checkOut ? (
+          {cartIsLoading ? (
+            <p className="text-center fw-semibold">Your cart is loading</p>
+          ) : checkOut ? (
             <p className="text-center fw-semibold">
               {orderComplete
                 ? "Your order has been completed."
                 : "Your order summary"}
             </p>
           ) : (
-            <p className="text-center">
+            <p className="text-center fw-semibold">
               {cart.length ? "Currently in cart" : "Your cart is empty"}
             </p>
           )}
+
           <ul className="list-group">
             {cart.map((item) => (
               <li className="list-group-item" key={item.id}>
