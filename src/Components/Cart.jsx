@@ -1,17 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 //import "./Cart.css";
 import CheckoutForm from "./CheckoutForm";
 import Button from "./Button";
+import { CartContext } from "./CartContext";
 
-function Cart({
-  cart,
-  removeFromCart,
-  orderComplete,
-  setOrderComplete,
-  resetCart,
-  cartIsLoading,
-}) {
+function Cart({ orderComplete, setOrderComplete }) {
   const [checkOut, setCheckOut] = useState(false);
+  const { resetCart, cartIsLoading, cart, removeFromCart } =
+    useContext(CartContext);
 
   function toComplete() {
     setOrderComplete(true);
@@ -78,7 +74,7 @@ function Cart({
               ) : (
                 <Button
                   onClick={() => toCheckOut()}
-                  btnColor="dark"
+                  btnVariant="btn-dark"
                   type="button"
                   text="Check-out"
                 >

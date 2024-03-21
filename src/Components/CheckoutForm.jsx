@@ -86,7 +86,7 @@ function CheckoutForm({ toComplete }) {
         )}
         {isError && <p className="text-danger">Please check your connection</p>}
 
-        <Button type="submit" btnColor="primary" text="Submit">
+        <Button type="submit" btnVariant="btn-primary" text="Submit">
           Submit
         </Button>
       </form>
