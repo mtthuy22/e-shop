@@ -11,7 +11,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const productsPerPage = 48;
   const [isLoading, setLoading] = useState(true);
-  const [allProducts, setAllProducts] = useState(false);
+  const [allProductsLoaded, setAllProductsLoaded] = useState(false);
   const [allCategories, setAllCategories] = useState(["All products"]);
   const [category, setCategory] = useState("All products");
   const [searchItem, setSearchItem] = useState("");
@@ -24,6 +24,7 @@ function App() {
     setLoading(true);
     setProducts([]);
     setCategory("All products");
+    setAllProductsLoaded(false);
   }
 
   useEffect(() => {
@@ -61,10 +62,14 @@ function App() {
       fetch(API_URL)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          console.log(
+            [...products, ...data.products].length,
+            data.total,
+            allProductsLoaded
+          );
           setProducts([...products, ...data.products]);
           if ([...products, ...data.products].length === data.total) {
-            setAllProducts(true);
+            setAllProductsLoaded(true);
           }
           setLoading(false);
         });
@@ -86,7 +91,7 @@ function App() {
     setCategory(category);
     setProducts([]);
     setLoading(true);
-    setAllProducts(false);
+    setAllProductsLoaded(false);
   }
 
   function textTransform(str) {
@@ -146,13 +151,14 @@ function App() {
               <h2>
                 {searchItem !== "" ? "Search results" : textTransform(category)}
               </h2>
-          
+
               <ProductList
                 products={products}
                 orderComplete={orderComplete}
+                isLoading={isLoading}
               ></ProductList>
 
-              {!allProducts && (
+              {!allProductsLoaded && (
                 <Button
                   text={isLoading ? "Items are loading..." : "Load more items"}
                   disabled={isLoading || category === ""}
