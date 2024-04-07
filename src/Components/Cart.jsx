@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-//import "./Cart.css";
 import CheckoutForm from "./CheckoutForm";
 import Button from "./Button";
 import { CartContext } from "./CartContext";
