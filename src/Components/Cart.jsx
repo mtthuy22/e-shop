@@ -17,7 +17,9 @@ function Cart({ orderComplete, setOrderComplete }) {
   }
 
   function totalPrice() {
-    return cart.reduce((total, item) => total + item.price, 0).toFixed(2);
+    return cart
+      .reduce((total, item) => total + item.price * item.quantity, 0)
+      .toFixed(2);
   }
 
   function resetShop() {
@@ -25,6 +27,7 @@ function Cart({ orderComplete, setOrderComplete }) {
     setCheckOut(false);
     resetCart();
   }
+
   return (
     <>
       <div className="cart bg-secondary bg-opacity-75 text-white mb-5 py-4">
@@ -47,16 +50,31 @@ function Cart({ orderComplete, setOrderComplete }) {
             {cart.map((item) => (
               <li className="list-group-item" key={item.id}>
                 <span>
-                  {item.title} - {item.price} EUR
+                  <span className="fw-semibold">{item.quantity}x</span>{" "}
+                  {item.title} - {item.price * item.quantity} EUR
                 </span>
+                <Button
+                  btnVariant="btn-outline-primary"
+                  type="button"
+                  text="+"
+                  addedClassClass="btn-sm"
+                ></Button>
+                <Button
+                  btnVariant="btn-outline-danger"
+                  type="button"
+                  text="-"
+                  addedClass="btn-sm"
+                ></Button>
+
                 {!checkOut && (
-                  <button
+                  <Button
                     type="button"
                     onClick={() => removeFromCart(item)}
-                    className="btn btn-danger btn-sm ms-3"
+                    btnVariant="btn-danger"
+                    addedClass="btn-sm ms-3"
+                    text="Remove"
                   >
-                    Remove
-                  </button>
+                  </Button>
                 )}
               </li>
             ))}
@@ -76,9 +94,7 @@ function Cart({ orderComplete, setOrderComplete }) {
                   btnVariant="btn-dark"
                   type="button"
                   text="Check-out"
-                >
-                  Check-out
-                </Button>
+                ></Button>
               )}
             </div>
           )}

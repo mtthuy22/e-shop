@@ -23,7 +23,7 @@ function Product({ product }) {
           <div className="card-footer px-2">
             <div className="d-flex justify-content-between align-items-center column-gap-2 row-gap-2 flex-wrap">
               <p className="card-text fw-bold mb-0 ">{product.price} EUR</p>
-              {isInCart(product) ? (
+              {/* {isInCart(product) ? (
                 <Button
                   type="button"
                   btnVariant="btn-primary-outline"
@@ -37,7 +37,13 @@ function Product({ product }) {
                   btnVariant="btn-primary"
                   text="Add to cart"
                 ></Button>
-              )}
+              )} */}
+              <Button
+                  type="button"
+                  onClick={()=>addToCart(product)}
+                  btnVariant="btn-primary"
+                  text="Add to cart"
+                ></Button>
             </div>
           </div>
         </div>

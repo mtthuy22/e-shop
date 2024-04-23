@@ -34,11 +34,13 @@ function CartContextProvider({ children }) {
         .then((res) => res.json())
         .then((data) => {
           setCart((cart) =>
+            //function to remove product duplicates
             [...data.products, ...cart].filter(
               (product, index, array) =>
                 array.findIndex((p) => p.id === product.id) === index
             )
           );
+          console.log(data);
           setCartIsLoading(false);
         });
     } catch (err) {
@@ -47,7 +49,19 @@ function CartContextProvider({ children }) {
   }
 
   function addToCart(product) {
-    setCart([...cart, product]);
+    if (cart.some((p) => p.id === product.id)) {
+      setCart(
+        cart.map((p) => {
+          if (p.id === product.id) {
+            return { ...p, quantity: p.quantity + 1 };
+          } else {
+            return p;
+          }
+        })
+      );
+    } else {
+      setCart([...cart, { ...product, quantity: 1 }]);
+    }
     updateCart(product, 1);
   }
 
