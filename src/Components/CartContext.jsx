@@ -1,6 +1,7 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
 
+
 export const CartContext = createContext();
 
 function CartContextProvider({ children }) {
@@ -9,7 +10,9 @@ function CartContextProvider({ children }) {
   const user = 10;
   //const user = Math.floor(Math.random() * 20 + 1);
 
-  function updateCart(product, number) {
+  function updateCart(product, updatedQuantity) {
+    console.log(isInCart(product), product, updatedQuantity);
+   
     fetch(`https://dummyjson.com/carts/${user}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -18,7 +21,7 @@ function CartContextProvider({ children }) {
         products: [
           {
             id: product.id,
-            quantity: number,
+            quantity: updatedQuantity,
           },
         ],
       }),
@@ -49,29 +52,47 @@ function CartContextProvider({ children }) {
   }
 
   function addToCart(product) {
-    if (cart.some((p) => p.id === product.id)) {
-      setCart(
-        cart.map((p) => {
-          if (p.id === product.id) {
-            return { ...p, quantity: p.quantity + 1 };
-          } else {
-            return p;
-          }
-        })
-      );
+    if (isInCart(product.id)) {
+      addQuantity(product);
     } else {
-      setCart([...cart, { ...product, quantity: 1 }]);
+      setCart([...cart, {...product, quantity: 1}]);
+      updateCart(product, 1);
     }
-    updateCart(product, 1);
   }
 
-  function isInCart(product) {
-    return cart.some((cartItem) => cartItem.id === product.id);
+  function isInCart(productId) {
+    return cart.some((cartItem) => cartItem.id === productId);
   }
 
   function removeFromCart(product) {
     setCart(cart.filter((item) => item !== product));
     updateCart(product, 0);
+  }
+
+  function addQuantity(product) {
+    setCart(
+      cart.map((p) => {
+        if (p.id === product.id) {
+          return { ...p, quantity: p.quantity + 1 };
+        }
+        return p;
+      })
+    );
+    const updatedQuantity = cart.find(p => p.id === product.id).quantity + 1;
+    updateCart(product, updatedQuantity);
+  }
+
+  function decreaseQuantity(product) {
+    setCart(
+      cart.map((p) => {
+        if (p.id === product.id && p.quantity > 0) {
+          return { ...p, quantity: p.quantity - 1 };
+        }
+        return p;
+      })
+    );
+    const updatedQuantity = product.quantity-1;
+    updateCart(product, updatedQuantity);
   }
 
   function resetCart() {
@@ -89,6 +110,8 @@ function CartContextProvider({ children }) {
     isInCart,
     removeFromCart,
     resetCart,
+    addQuantity,
+    decreaseQuantity,
   }; //data to be used in other components
   return (
     <CartContext.Provider value={ContextValue}>{children}</CartContext.Provider>

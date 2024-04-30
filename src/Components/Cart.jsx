@@ -1,11 +1,11 @@
 import React, { useContext, useState } from "react";
-import CheckoutForm from "./CheckoutForm";
 import Button from "./Button";
 import { CartContext } from "./CartContext";
+import CheckoutForm from "./CheckoutForm";
 
 function Cart({ orderComplete, setOrderComplete }) {
   const [checkOut, setCheckOut] = useState(false);
-  const { resetCart, cartIsLoading, cart, removeFromCart } =
+  const { resetCart, cartIsLoading, cart, removeFromCart, addQuantity, decreaseQuantity } =
     useContext(CartContext);
 
   function toComplete() {
@@ -53,18 +53,23 @@ function Cart({ orderComplete, setOrderComplete }) {
                   <span className="fw-semibold">{item.quantity}x</span>{" "}
                   {item.title} - {item.price * item.quantity} EUR
                 </span>
-                <Button
-                  btnVariant="btn-outline-primary"
-                  type="button"
-                  text="+"
-                  addedClassClass="btn-sm"
-                ></Button>
-                <Button
-                  btnVariant="btn-outline-danger"
-                  type="button"
-                  text="-"
-                  addedClass="btn-sm"
-                ></Button>
+                <div className="btn-group ms-2">
+                  <Button
+                    btnVariant="btn-outline-primary"
+                    type="button"
+                    text="+"
+                    addedClass="btn-circle"
+                    onClick = {() => addQuantity(item)}
+                  ></Button>
+                  <Button
+                    btnVariant="btn-outline-danger"
+                    type="button"
+                    text="-"
+                    addedClass="btn-circle"
+                    disabled = {item.quantity === 1}
+                    onClick={()=>decreaseQuantity(item)}
+                  ></Button>
+                </div>
 
                 {!checkOut && (
                   <Button

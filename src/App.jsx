@@ -62,11 +62,6 @@ function App() {
       fetch(API_URL)
         .then((res) => res.json())
         .then((data) => {
-          console.log(
-            [...products, ...data.products].length,
-            data.total,
-            allProductsLoaded
-          );
           setProducts([...products, ...data.products]);
           if ([...products, ...data.products].length === data.total) {
             setAllProductsLoaded(true);
