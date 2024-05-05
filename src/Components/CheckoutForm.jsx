@@ -1,13 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import Button from "./Button";
+import { CartContext } from "./CartContext";
 
 function CheckoutForm({ toComplete }) {
   const [email, setEmail] = useState("");
   const [displayValidation, setDisplayValidation] = useState(false);
   let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
   const [isError, setIsError] = useState(false);
-
+  const cart = useContext(CartContext);
+  const orderData = cart.cart.map(({ id, title, quantity }) => ({
+    id,
+    title,
+    quantity,
+  }));
   const FORMSPARK_FORM_URL = "https://submit-form.com/GxG2xLB2F";
   const isValid = emailRegex.test(email);
 
@@ -23,6 +29,7 @@ function CheckoutForm({ toComplete }) {
   }, [isValid]);
 
   async function handleSubmit(event) {
+    console.log(cart);
     event.preventDefault();
     setDisplayValidation(true);
     setIsError(false);
@@ -36,6 +43,7 @@ function CheckoutForm({ toComplete }) {
           },
           body: JSON.stringify({
             email,
+            order: orderData,
           }),
         });
         toComplete();

@@ -62,6 +62,7 @@ function App() {
       fetch(API_URL)
         .then((res) => res.json())
         .then((data) => {
+          data.products[0].stock = 0;
           setProducts([...products, ...data.products]);
           if ([...products, ...data.products].length === data.total) {
             setAllProductsLoaded(true);
@@ -131,39 +132,45 @@ function App() {
           orderComplete={orderComplete}
           setOrderComplete={setOrderComplete}
         />
-        <div className="container">
-          <div className="row mb-3 row-gap-3">
-            <div className="col-auto">
-              <Categories
-                categories={allCategories}
-                chooseCategory={chooseCategory}
-                selectedCategory={category}
-                display={displayCategories}
-                textTransform={textTransform}
-              />
-            </div>
-            <div className="col-12 col-md">
-              <h2>
-                {searchItem !== "" ? "Search results" : textTransform(category)}
-              </h2>
 
-              <ProductList
-                products={products}
-                orderComplete={orderComplete}
-                isLoading={isLoading}
-              ></ProductList>
-
-              {!allProductsLoaded && (
-                <Button
-                  text={isLoading ? "Items are loading..." : "Load more items"}
-                  disabled={isLoading || category === ""}
-                  btnVariant="btn-primary"
-                  onClick={fetchData}
+        {!orderComplete && (
+          <div className="container">
+            <div className="row mb-3 row-gap-3">
+              <div className="col-auto">
+                <Categories
+                  categories={allCategories}
+                  chooseCategory={chooseCategory}
+                  selectedCategory={category}
+                  display={displayCategories}
+                  textTransform={textTransform}
                 />
-              )}
+              </div>
+              <div className="col-12 col-md">
+                <h2>
+                  {searchItem !== ""
+                    ? "Search results"
+                    : textTransform(category)}
+                </h2>
+
+                <ProductList
+                  products={products}
+                  isLoading={isLoading}
+                ></ProductList>
+
+                {!allProductsLoaded && (
+                  <Button
+                    text={
+                      isLoading ? "Items are loading..." : "Load more items"
+                    }
+                    disabled={isLoading || category === ""}
+                    btnVariant="btn-primary"
+                    onClick={fetchData}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </CartContextProvider>
   );

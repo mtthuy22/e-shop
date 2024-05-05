@@ -1,7 +1,6 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
 
-
 export const CartContext = createContext();
 
 function CartContextProvider({ children }) {
@@ -9,10 +8,19 @@ function CartContextProvider({ children }) {
   const [cartIsLoading, setCartIsLoading] = useState(true);
   const user = 10;
   //const user = Math.floor(Math.random() * 20 + 1);
+  //function for no of items in cart (consider)
+
+  function getQuantityInCart(productId) {
+    if (isInCart(productId)) {
+      return cart.find((cartItem) => cartItem.id === productId).quantity;
+    } else {
+      return 0;
+    }
+  }
 
   function updateCart(product, updatedQuantity) {
     console.log(isInCart(product), product, updatedQuantity);
-   
+
     fetch(`https://dummyjson.com/carts/${user}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -55,7 +63,7 @@ function CartContextProvider({ children }) {
     if (isInCart(product.id)) {
       addQuantity(product);
     } else {
-      setCart([...cart, {...product, quantity: 1}]);
+      setCart([...cart, { ...product, quantity: 1 }]);
       updateCart(product, 1);
     }
   }
@@ -78,7 +86,7 @@ function CartContextProvider({ children }) {
         return p;
       })
     );
-    const updatedQuantity = cart.find(p => p.id === product.id).quantity + 1;
+    const updatedQuantity = cart.find((p) => p.id === product.id).quantity + 1;
     updateCart(product, updatedQuantity);
   }
 
@@ -91,7 +99,7 @@ function CartContextProvider({ children }) {
         return p;
       })
     );
-    const updatedQuantity = product.quantity-1;
+    const updatedQuantity = product.quantity - 1;
     updateCart(product, updatedQuantity);
   }
 
@@ -112,6 +120,7 @@ function CartContextProvider({ children }) {
     resetCart,
     addQuantity,
     decreaseQuantity,
+    getQuantityInCart
   }; //data to be used in other components
   return (
     <CartContext.Provider value={ContextValue}>{children}</CartContext.Provider>

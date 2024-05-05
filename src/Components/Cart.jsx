@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import Button from "./Button";
 import { CartContext } from "./CartContext";
 import CheckoutForm from "./CheckoutForm";
+import { discountCalculation } from "./helpers";
+
 
 function Cart({ orderComplete, setOrderComplete }) {
   const [checkOut, setCheckOut] = useState(false);
@@ -27,21 +29,21 @@ function Cart({ orderComplete, setOrderComplete }) {
     setCheckOut(false);
     resetCart();
   }
-
+ console.log(cart)
   return (
     <>
-      <div className="cart bg-secondary bg-opacity-75 text-white mb-5 py-4">
+      <div className="cart bg-secondary bg-opacity-75 text-light mb-5 py-4">
         <div className="container">
           {cartIsLoading ? (
-            <p className="text-center fw-semibold">Your cart is loading</p>
+            <p className="text-center text-uppercase fw-semibold">Your cart is loading</p>
           ) : checkOut ? (
-            <p className="text-center fw-semibold">
+            <p className="text-center text-uppercase fw-semibold">
               {orderComplete
-                ? "Your order has been completed."
+                ? "Your order has been completed"
                 : "Your order summary"}
             </p>
           ) : (
-            <p className="text-center fw-semibold">
+            <p className="text-center text-uppercase fw-semibold">
               {cart.length ? "Currently in cart" : "Your cart is empty"}
             </p>
           )}
@@ -51,14 +53,17 @@ function Cart({ orderComplete, setOrderComplete }) {
               <li className="list-group-item" key={item.id}>
                 <span>
                   <span className="fw-semibold">{item.quantity}x</span>{" "}
-                  {item.title} - {item.price * item.quantity} EUR
+                  {/* {item.title} - {((item.price - (item.discountPercentage * item.price / 100)) * item.quantity).toFixed(2)} EUR */}
+                  {item.title} - {(discountCalculation(item.price, item.discountPercentage) * item.quantity).toFixed(2)} EUR
                 </span>
+                {!orderComplete && (
                 <div className="btn-group ms-2">
                   <Button
                     btnVariant="btn-outline-primary"
                     type="button"
                     text="+"
                     addedClass="btn-circle"
+                    disabled = {orderComplete}
                     onClick = {() => addQuantity(item)}
                   ></Button>
                   <Button
@@ -66,18 +71,19 @@ function Cart({ orderComplete, setOrderComplete }) {
                     type="button"
                     text="-"
                     addedClass="btn-circle"
-                    disabled = {item.quantity === 1}
+                    disabled = {orderComplete || item.quantity === 1}
                     onClick={()=>decreaseQuantity(item)}
                   ></Button>
-                </div>
+                </div>)}
 
-                {!checkOut && (
+                {!orderComplete && (
                   <Button
                     type="button"
                     onClick={() => removeFromCart(item)}
                     btnVariant="btn-danger"
                     addedClass="btn-sm ms-3"
                     text="Remove"
+                   
                   >
                   </Button>
                 )}
@@ -106,7 +112,7 @@ function Cart({ orderComplete, setOrderComplete }) {
           {orderComplete && (
             <Button
               type="button"
-              btnColor="primary"
+              btnVariant="btn-primary"
               text="Go back to shop"
               onClick={() => resetShop()}
             ></Button>
