@@ -29,7 +29,7 @@ function Cart({ orderComplete, setOrderComplete }) {
     setCheckOut(false);
     resetCart();
   }
- console.log(cart)
+
   return (
     <>
       <div className="cart bg-secondary bg-opacity-75 text-light mb-5 py-4">
@@ -53,7 +53,6 @@ function Cart({ orderComplete, setOrderComplete }) {
               <li className="list-group-item" key={item.id}>
                 <span>
                   <span className="fw-semibold">{item.quantity}x</span>{" "}
-                  {/* {item.title} - {((item.price - (item.discountPercentage * item.price / 100)) * item.quantity).toFixed(2)} EUR */}
                   {item.title} - {(discountCalculation(item.price, item.discountPercentage) * item.quantity).toFixed(2)} EUR
                 </span>
                 {!orderComplete && (

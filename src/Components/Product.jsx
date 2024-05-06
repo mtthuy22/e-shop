@@ -10,7 +10,6 @@ function Product({ product }) {
   const emptyStars = Array(5 - Math.ceil(rating)).fill(0);
   rating - stars.length && stars.push(0.5);
   stars.push(...emptyStars);
-  console.log(product);
   const stock = product.stock - getQuantityInCart(product.id);
   return (
     <>

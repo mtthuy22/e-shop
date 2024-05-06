@@ -29,7 +29,6 @@ function CheckoutForm({ toComplete }) {
   }, [isValid]);
 
   async function handleSubmit(event) {
-    console.log(cart);
     event.preventDefault();
     setDisplayValidation(true);
     setIsError(false);

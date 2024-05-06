@@ -8,7 +8,6 @@ function CartContextProvider({ children }) {
   const [cartIsLoading, setCartIsLoading] = useState(true);
   const user = 10;
   //const user = Math.floor(Math.random() * 20 + 1);
-  //function for no of items in cart (consider)
 
   function getQuantityInCart(productId) {
     if (isInCart(productId)) {
@@ -19,8 +18,6 @@ function CartContextProvider({ children }) {
   }
 
   function updateCart(product, updatedQuantity) {
-    console.log(isInCart(product), product, updatedQuantity);
-
     fetch(`https://dummyjson.com/carts/${user}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -120,7 +117,7 @@ function CartContextProvider({ children }) {
     resetCart,
     addQuantity,
     decreaseQuantity,
-    getQuantityInCart
+    getQuantityInCart,
   }; //data to be used in other components
   return (
     <CartContext.Provider value={ContextValue}>{children}</CartContext.Provider>
