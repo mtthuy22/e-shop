@@ -81,20 +81,18 @@ function Product({ product }) {
                 <Button
                   type="button"
                   btnVariant="btn-primary-outline"
-                  disabled = {true}
+                  disabled={true}
                   text="Out of stock"
                 ></Button>
               )}
               {product.discountPercentage !== 0 && (
-                <p className="card-text fw-bold text-white mb-0 bg-warning p-1">
+                <p className="card-text fw-bold text-bg-warning mb-0 p-1">
                   -{product.discountPercentage}%
                 </p>
               )}
             </div>
             <p className="card-text">
-              <small>
-                {stock ? `In stock: ${stock}` : `Unavailable`}
-              </small>
+              <small>{stock ? `In stock: ${stock}` : `Unavailable`}</small>
             </p>
           </div>
         </div>
