@@ -33,21 +33,21 @@ function Product({ product }) {
                   return (
                     <i
                       key={index}
-                      className="fa-solid fa-star text-warning"
+                      className="bi bi-star-fill text-warning"
                     ></i>
                   );
                 } else if (rating === 0.5) {
                   return (
                     <i
                       key={index}
-                      className="fa-solid fa-star-half-stroke text-warning"
+                      className="bi bi-star-half text-warning"
                     ></i>
                   );
                 } else {
                   return (
                     <i
                       key={index}
-                      className="fa-regular fa-star text-warning"
+                      className="bi bi-star text-warning"
                     ></i>
                   );
                 }
