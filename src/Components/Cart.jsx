@@ -3,6 +3,7 @@ import Button from "./Button";
 import { CartContext } from "./CartContext";
 import CheckoutForm from "./CheckoutForm";
 import { discountCalculation } from "./helpers";
+import QuantityInput from "./QuantityInput"
 
 function Cart({ orderComplete, setOrderComplete }) {
   const [checkOut, setCheckOut] = useState(false);
@@ -10,10 +11,7 @@ function Cart({ orderComplete, setOrderComplete }) {
     resetCart,
     cartIsLoading,
     cart,
-    removeFromCart,
-    addQuantity,
-    decreaseQuantity,
-    inputQuantity
+    removeFromCart
   } = useContext(CartContext);
 
   function toComplete() {
@@ -76,30 +74,7 @@ function Cart({ orderComplete, setOrderComplete }) {
                 </span> */}
                 <span>{item.title}</span>
                 {!orderComplete && (
-                  <div className="btn-group ms-2">
-                    <Button
-                      btnVariant="btn-outline-primary"
-                      type="button"
-                      text="+"
-                      addedClass="btn-circle"
-                      disabled={orderComplete}
-                      onClick={() => addQuantity(item)}
-                    ></Button>
-                    <input
-                      type="number"
-                      className="form-control form-control-sm rounded-0"
-                      value={item.quantity}
-                      onChange = {(e) => inputQuantity(e)}
-                    />
-                    <Button
-                      btnVariant="btn-outline-danger"
-                      type="button"
-                      text="-"
-                      addedClass="btn-circle"
-                      disabled={orderComplete || item.quantity === 1}
-                      onClick={() => decreaseQuantity(item)}
-                    ></Button>
-                  </div>
+                 <QuantityInput orderComplete = {orderComplete} item={item}/>
                 )}
                 <span>
                   {(
@@ -127,14 +102,14 @@ function Cart({ orderComplete, setOrderComplete }) {
               <li className="list-group-item">
                 <div className="text-end">
                   <p className="text-secondary fs-6">
-                    <span>Total</span>: {totalPrice()} EUR
+                    <span>Total before discount</span>: {totalPrice()} EUR
                   </p>
                   <p className="fs-6">
                     <span>Discount</span>:{" "}
                     {(totalPrice() - totalDiscountPrice()).toFixed(2)} EUR
                   </p>
                   <p className="fw-bold">
-                    <span>Total after discount</span>: {totalDiscountPrice()}{" "}
+                    <span>Total</span>: {totalDiscountPrice()}{" "}
                     EUR
                   </p>
                 </div>
