@@ -9,6 +9,7 @@ function CartContextProvider({ children }) {
   const user = 10;
   //const user = Math.floor(Math.random() * 20 + 1);
 
+
   function getQuantityInCart(productId) {
     if (isInCart(productId)) {
       return cart.find((cartItem) => cartItem.id === productId).quantity;
@@ -87,6 +88,7 @@ function CartContextProvider({ children }) {
     updateCart(product, updatedQuantity);
   }
 
+
   function decreaseQuantity(product) {
     setCart(
       cart.map((p) => {
@@ -100,6 +102,18 @@ function CartContextProvider({ children }) {
     updateCart(product, updatedQuantity);
   }
 
+  function updateNewQuantity(productId, newQuantity){
+    setCart(
+      cart.map((p) => {
+        if (p.id === productId && p.quantity > 0) {
+          return { ...p, quantity: newQuantity };
+        }
+        return p;
+      })
+    );
+  }
+
+
   function resetCart() {
     setCart([]);
   }
@@ -111,6 +125,7 @@ function CartContextProvider({ children }) {
   const ContextValue = {
     cart,
     cartIsLoading,
+    setCart,
     addToCart,
     isInCart,
     removeFromCart,
@@ -118,6 +133,7 @@ function CartContextProvider({ children }) {
     addQuantity,
     decreaseQuantity,
     getQuantityInCart,
+    updateNewQuantity
   }; //data to be used in other components
   return (
     <CartContext.Provider value={ContextValue}>{children}</CartContext.Provider>
