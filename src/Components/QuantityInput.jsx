@@ -5,9 +5,9 @@ import { CartContext } from "./CartContext";
 
 function QuantityInput({ item, orderComplete }) {
   const [cartQuantity, setCartQuantity] = useState(item.quantity);
-  const { addQuantity, decreaseQuantity, updateNewQuantity, getQuantityInCart } =
+  const { addQuantity, decreaseQuantity, updateNewQuantity } =
     useContext(CartContext);
-
+  console.log("id:", item.id, "stock:", item.stock);
   function inputQuantity(e) {
     let input = e.target.value;
     let numInput = Math.abs(parseInt(input));
@@ -18,8 +18,13 @@ function QuantityInput({ item, orderComplete }) {
       setCartQuantity("");
       updateNewQuantity(item.id, 1);
     } else {
-      setCartQuantity(numInput);
-      updateNewQuantity(item.id, numInput);
+      if (numInput <= item.stock) {
+        setCartQuantity(numInput);
+        updateNewQuantity(item.id, numInput);
+      } else {
+        setCartQuantity(item.stock);
+        updateNewQuantity(item.id, item.stock);
+      }
     }
   }
 
@@ -34,13 +39,14 @@ function QuantityInput({ item, orderComplete }) {
         type="button"
         text="+"
         addedClass="btn-circle"
-        disabled={orderComplete}
+        disabled={orderComplete || item.quantity > item.stock}
         onClick={() => addQuantity(item)}
       ></Button>
       <input
         type="number"
         className="form-control form-control-sm rounded-0"
         onChange={(e) => inputQuantity(e)}
+        onBlur={() => setCartQuantity(item.quantity)}
         value={cartQuantity}
       />
       <Button

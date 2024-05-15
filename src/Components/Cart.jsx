@@ -3,16 +3,12 @@ import Button from "./Button";
 import { CartContext } from "./CartContext";
 import CheckoutForm from "./CheckoutForm";
 import { discountCalculation } from "./helpers";
-import QuantityInput from "./QuantityInput"
+import QuantityInput from "./QuantityInput";
 
 function Cart({ orderComplete, setOrderComplete }) {
   const [checkOut, setCheckOut] = useState(false);
-  const {
-    resetCart,
-    cartIsLoading,
-    cart,
-    removeFromCart
-  } = useContext(CartContext);
+  const { resetCart, cartIsLoading, cart, removeFromCart } =
+    useContext(CartContext);
 
   function toComplete() {
     setOrderComplete(true);
@@ -27,7 +23,7 @@ function Cart({ orderComplete, setOrderComplete }) {
       .reduce((total, item) => total + item.price * item.quantity, 0)
       .toFixed(2);
   }
-  
+
   function totalDiscountPrice() {
     return cart
       .reduce(
@@ -66,56 +62,57 @@ function Cart({ orderComplete, setOrderComplete }) {
             </p>
           )}
 
-          <ul className="list-group mb-2">
+          <div className="list-group mb-2">
             {cart.map((item) => (
-              <li className="list-group-item" key={item.id}>
-                {/* <span>
-                  {item.title} - {(discountCalculation(item.price, item.discountPercentage) * item.quantity).toFixed(2)} EUR
-                </span> */}
-                <span>{item.title}</span>
-                {!orderComplete && (
-                 <QuantityInput orderComplete = {orderComplete} item={item}/>
-                )}
-                <span>
-                  {(
-                    discountCalculation(item.price, item.discountPercentage) *
-                    item.quantity
-                  ).toFixed(2)}{" "}
-                  EUR
-                </span>
-                <span className="text-decoration-line-through">
-                  {item.price * item.quantity} EUR
-                </span>
+              <div className="d-flex list-group-item row" key={item.id}>
+                <div className="col">{item.title}</div>
+                <div className="col">
+                  {!orderComplete && (
+                    <QuantityInput orderComplete={orderComplete} item={item} />
+                  )}
+                </div>
 
-                {!orderComplete && (
-                  <Button
-                    type="button"
-                    onClick={() => removeFromCart(item)}
-                    btnVariant="btn-danger"
-                    addedClass="btn-sm ms-3"
-                    text="Remove"
-                  ></Button>
-                )}
-              </li>
+                <div className="col">
+                  <span>
+                    {(
+                      discountCalculation(item.price, item.discountPercentage) *
+                      item.quantity
+                    ).toFixed(2)}
+                    EUR
+                  </span>
+
+                  <span className="text-decoration-line-through col">
+                    {item.price * item.quantity}EUR
+                  </span>
+                </div>
+                <div className="col">
+                  {!orderComplete && (
+                    <Button
+                      type="button"
+                      onClick={() => removeFromCart(item)}
+                      btnVariant="btn-danger"
+                      addedClass="btn-sm ms-3"
+                      text="Remove"
+                    ></Button>
+                  )}
+                </div>
+              </div>
             ))}
             {cart.length > 0 && (
-              <li className="list-group-item">
+              <div className="list-group-item row">
                 <div className="text-end">
                   <p className="text-secondary fs-6">
-                    <span>Total before discount</span>: {totalPrice()} EUR
+                    Total before discount: {totalPrice()} EUR
                   </p>
                   <p className="fs-6">
-                    <span>Discount</span>:{" "}
-                    {(totalPrice() - totalDiscountPrice()).toFixed(2)} EUR
-                  </p>
-                  <p className="fw-bold">
-                    <span>Total</span>: {totalDiscountPrice()}{" "}
+                    Discount: {(totalPrice() - totalDiscountPrice()).toFixed(2)}{" "}
                     EUR
                   </p>
+                  <p className="fw-bold">Total: {totalDiscountPrice()} EUR</p>
                 </div>
-              </li>
+              </div>
             )}
-          </ul>
+          </div>
           {checkOut ? (
             !orderComplete && (
               <CheckoutForm toComplete={toComplete}></CheckoutForm>

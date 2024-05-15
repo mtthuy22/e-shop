@@ -9,7 +9,6 @@ function CartContextProvider({ children }) {
   const user = 10;
   //const user = Math.floor(Math.random() * 20 + 1);
 
-
   function getQuantityInCart(productId) {
     if (isInCart(productId)) {
       return cart.find((cartItem) => cartItem.id === productId).quantity;
@@ -42,15 +41,24 @@ function CartContextProvider({ children }) {
       fetch(`https://dummyjson.com/carts/${user}`)
         .then((res) => res.json())
         .then((data) => {
-          setCart((cart) =>
-            //function to remove product duplicates
-            [...data.products, ...cart].filter(
-              (product, index, array) =>
-                array.findIndex((p) => p.id === product.id) === index
+          //fetch product per cart item id
+          Promise.all(
+            data.products.map(
+              (cartItem) =>
+                fetch(`https://dummyjson.com/products/${cartItem.id}`)
+                  .then((res) => res.json())
+                  .then((product) => ({ ...product, ...cartItem })) // transformation, merged product and cart
             )
-          );
-          console.log(data);
-          setCartIsLoading(false);
+          ).then((cartItems) => {
+            setCart((cart) =>
+              //function to remove product duplicates
+              [...cartItems, ...cart].filter(
+                (product, index, array) =>
+                  array.findIndex((p) => p.id === product.id) === index
+              )
+            );
+            setCartIsLoading(false);
+          });
         });
     } catch (err) {
       setCartIsLoading(false);
@@ -88,7 +96,6 @@ function CartContextProvider({ children }) {
     updateCart(product, updatedQuantity);
   }
 
-
   function decreaseQuantity(product) {
     setCart(
       cart.map((p) => {
@@ -102,7 +109,7 @@ function CartContextProvider({ children }) {
     updateCart(product, updatedQuantity);
   }
 
-  function updateNewQuantity(productId, newQuantity){
+  function updateNewQuantity(productId, newQuantity) {
     setCart(
       cart.map((p) => {
         if (p.id === productId && p.quantity > 0) {
@@ -112,7 +119,6 @@ function CartContextProvider({ children }) {
       })
     );
   }
-
 
   function resetCart() {
     setCart([]);
@@ -133,7 +139,7 @@ function CartContextProvider({ children }) {
     addQuantity,
     decreaseQuantity,
     getQuantityInCart,
-    updateNewQuantity
+    updateNewQuantity,
   }; //data to be used in other components
   return (
     <CartContext.Provider value={ContextValue}>{children}</CartContext.Provider>
