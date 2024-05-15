@@ -5,6 +5,7 @@ import Button from "./Components/Button";
 import Categories from "./Components/Categories";
 import "./App.css";
 import CartContextProvider from "./Components/CartContext";
+import { textTransform } from "./helpers";
 
 function App() {
   const [orderComplete, setOrderComplete] = useState(false);
@@ -90,13 +91,6 @@ function App() {
     setAllProductsLoaded(false);
   }
 
-  function textTransform(str) {
-    return (
-      str[0].toUpperCase() +
-      str.slice(1).replace("-", " ").replace("ens", "en's")
-    );
-  }
-
   return (
     <CartContextProvider>
       <div className="App">
@@ -129,7 +123,6 @@ function App() {
                   chooseCategory={chooseCategory}
                   selectedCategory={category}
                   display={displayCategories}
-                  textTransform={textTransform}
                 />
               </div>
               <div className="col-12 col-md">

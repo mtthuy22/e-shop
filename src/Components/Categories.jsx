@@ -1,12 +1,7 @@
 import React from "react";
+import { textTransform } from "./helpers";
 
-function Categories({
-  categories,
-  chooseCategory,
-  selectedCategory,
-  display,
-  textTransform,
-}) {
+function Categories({ categories, chooseCategory, selectedCategory, display }) {
   return (
     <div
       className={`${
