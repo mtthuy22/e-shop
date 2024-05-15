@@ -5,7 +5,7 @@ import Button from "./Components/Button";
 import Categories from "./Components/Categories";
 import "./App.css";
 import CartContextProvider from "./Components/CartContext";
-import { textTransform } from "./helpers";
+import { textTransform } from "./Components/helpers";
 
 function App() {
   const [orderComplete, setOrderComplete] = useState(false);
