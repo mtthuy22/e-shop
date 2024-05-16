@@ -11,9 +11,7 @@ function CartContextProvider({ children }) {
 
   function getQuantityInCart(productId) {
     if (isInCart(productId)) {
-      return cart.find((cartItem) => cartItem.id === productId).quantity;
-    } else {
-      return 0;
+      return cart.find((cartItem) => cartItem.id === productId).quantity ?? 0;
     }
   }
 

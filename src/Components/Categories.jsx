@@ -17,8 +17,8 @@ function Categories({ chooseCategory, selectedCategory }) {
   }, []);
 
   return (
-    <>
-      {allCategories.map((category) => (
+  
+      allCategories.map((category) => (
         <button
           className={`list-group-item list-group-item-action w-auto ${
             category === selectedCategory ? "active" : ""
@@ -28,8 +28,8 @@ function Categories({ chooseCategory, selectedCategory }) {
         >
           {textTransform(category)}
         </button>
-      ))}
-    </>
+      ))
+
   );
 }
 
