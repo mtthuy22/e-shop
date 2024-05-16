@@ -99,7 +99,7 @@ function CartContextProvider({ children }) {
   function decreaseQuantity(product) {
     setCart(
       cart.map((p) => {
-        if (p.id === product.id && p.quantity > 0) {
+        if (p.id === product.id) {
           return { ...p, quantity: p.quantity - 1 };
         }
         return p;
@@ -112,7 +112,7 @@ function CartContextProvider({ children }) {
   function updateNewQuantity(productId, newQuantity) {
     setCart(
       cart.map((p) => {
-        if (p.id === productId && p.quantity > 0) {
+        if (p.id === productId) {
           return { ...p, quantity: newQuantity };
         }
         return p;
