@@ -42,6 +42,32 @@ function Cart({ orderComplete, setOrderComplete }) {
     resetCart();
   }
 
+  let checkOutComponent;
+
+  if (orderComplete) {
+    checkOutComponent = (
+      <Button
+        type="button"
+        btnVariant="btn-primary"
+        text="Go back to shop"
+        onClick={() => resetShop()}
+      ></Button>
+    );
+  } else if (checkOut) {
+    checkOutComponent = <CheckoutForm toComplete={toComplete}></CheckoutForm>;
+  } else if (cart.length !== 0) {
+    checkOutComponent = (
+      <Button
+        onClick={() => toCheckOut()}
+        btnVariant="btn-dark"
+        type="button"
+        text="Check-out"
+      ></Button>
+    );
+  } else {
+    checkOutComponent = "";
+  }
+
   return (
     <>
       <div className="cart bg-secondary bg-opacity-75 text-light mb-5 py-4">
@@ -113,27 +139,7 @@ function Cart({ orderComplete, setOrderComplete }) {
               </div>
             )}
           </div>
-          {checkOut ? (
-            !orderComplete && (
-              <CheckoutForm toComplete={toComplete}></CheckoutForm>
-            )
-          ) : (
-            <Button
-              onClick={() => toCheckOut()}
-              btnVariant="btn-dark"
-              type="button"
-              text="Check-out"
-            ></Button>
-          )}
-
-          {orderComplete && (
-            <Button
-              type="button"
-              btnVariant="btn-primary"
-              text="Go back to shop"
-              onClick={() => resetShop()}
-            ></Button>
-          )}
+          {checkOutComponent}
         </div>
       </div>
     </>
