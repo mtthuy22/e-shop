@@ -10,9 +10,7 @@ function CartContextProvider({ children }) {
   //const user = Math.floor(Math.random() * 20 + 1);
 
   function getQuantityInCart(productId) {
-    if (isInCart(productId)) {
-      return cart.find((cartItem) => cartItem.id === productId).quantity ?? 0;
-    }
+    return cart.find((cartItem) => cartItem.id === productId)?.quantity ?? 0;
   }
 
   function updateCart(product, updatedQuantity) {
