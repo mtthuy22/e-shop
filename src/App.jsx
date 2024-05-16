@@ -117,12 +117,15 @@ function App() {
         {!orderComplete && (
           <div className="container">
             <div className="row mb-3 row-gap-3">
-              <div className="col-auto">
+              <div
+                className={`${
+                  !displayCategories && "d-none"
+                } list-group list-group-flush flex-row flex-md-column flex-wrap flex-md-nowrap col-auto`}
+              >
                 <Categories
                   categories={allCategories}
                   chooseCategory={chooseCategory}
                   selectedCategory={category}
-                  display={displayCategories}
                 />
               </div>
               <div className="col-12 col-md">
