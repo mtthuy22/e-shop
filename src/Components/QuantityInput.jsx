@@ -18,13 +18,8 @@ function QuantityInput({ item, orderComplete }) {
       setCartQuantity("");
       updateNewQuantity(item.id, 1);
     } else {
-      if (numInput <= item.stock) {
-        setCartQuantity(numInput);
-        updateNewQuantity(item.id, numInput);
-      } else {
-        setCartQuantity(item.stock);
-        updateNewQuantity(item.id, item.stock);
-      }
+      setCartQuantity(numInput);
+      updateNewQuantity(item.id, numInput);
     }
   }
 
@@ -39,14 +34,14 @@ function QuantityInput({ item, orderComplete }) {
         type="button"
         text="+"
         addedClass="btn-circle"
-        disabled={orderComplete || item.quantity > item.stock}
+        disabled={orderComplete || item.quantity === item.stock}
         onClick={() => addQuantity(item)}
       ></Button>
       <input
         type="number"
         className="form-control form-control-sm rounded-0"
         onChange={(e) => inputQuantity(e)}
-        onBlur={() => setCartQuantity(item.quantity)}
+        onBlur={() => updateNewQuantity(item.id, Math.min(item.quantity, item.stock))}
         value={cartQuantity}
       />
       <Button
