@@ -55,7 +55,7 @@ function CheckoutForm({ toComplete }) {
 
   return (
     <>
-      <form onSubmit={(e) => handleSubmit(e)} noValidate>
+      <form onSubmit={handleSubmit} noValidate>
         <label htmlFor="email" className="form-label fw-semibold">
           Send order to:
         </label>
@@ -74,7 +74,7 @@ function CheckoutForm({ toComplete }) {
               name="email"
               value={email}
               placeholder="name@example.com"
-              onChange={(e) => inputEmail(e)}
+              onChange={inputEmail}
               required
             />
           </div>

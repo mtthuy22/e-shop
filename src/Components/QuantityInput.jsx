@@ -40,8 +40,10 @@ function QuantityInput({ item, orderComplete }) {
       <input
         type="number"
         className="form-control form-control-sm rounded-0"
-        onChange={(e) => inputQuantity(e)}
-        onBlur={() => updateNewQuantity(item.id, Math.min(item.quantity, item.stock))}
+        onChange={inputQuantity}
+        onBlur={() =>
+          updateNewQuantity(item.id, Math.min(item.quantity, item.stock))
+        }
         value={cartQuantity}
       />
       <Button
