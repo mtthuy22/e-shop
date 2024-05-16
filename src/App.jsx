@@ -13,7 +13,6 @@ function App() {
   const productsPerPage = 48;
   const [isLoading, setLoading] = useState(true);
   const [allProductsLoaded, setAllProductsLoaded] = useState(false);
-  const [allCategories, setAllCategories] = useState(["All products"]);
   const [category, setCategory] = useState("All products");
   const [searchItem, setSearchItem] = useState("");
   let displayCategories = searchItem === "";
@@ -27,10 +26,6 @@ function App() {
     setCategory("All products");
     setAllProductsLoaded(false);
   }
-
-  useEffect(() => {
-    getCategories();
-  }, []);
 
   useEffect(() => {
     if (searchItem === "") {
@@ -76,14 +71,6 @@ function App() {
     }
   }
 
-  function getCategories() {
-    fetch("https://dummyjson.com/products/categories")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllCategories([...allCategories, ...data]);
-      });
-  }
-
   function chooseCategory(category) {
     setCategory(category);
     setProducts([]);
@@ -123,7 +110,6 @@ function App() {
                 } list-group list-group-flush flex-row flex-md-column flex-wrap flex-md-nowrap col-auto`}
               >
                 <Categories
-                  categories={allCategories}
                   chooseCategory={chooseCategory}
                   selectedCategory={category}
                 />
