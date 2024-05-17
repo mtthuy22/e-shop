@@ -2,14 +2,10 @@ import React, { useContext } from "react";
 import Button from "./Button";
 import { CartContext } from "./CartContext";
 import { discountCalculation } from "./helpers";
+import StarsRating from "./StarsRating";
 
 function Product({ product }) {
   const { addToCart, getQuantityInCart } = useContext(CartContext);
-  const rating = Math.round(product.rating / 0.5) * 0.5;
-  const stars = Array(Math.floor(rating)).fill(1);
-  const emptyStars = Array(5 - Math.ceil(rating)).fill(0);
-  rating - stars.length && stars.push(0.5);
-  stars.push(...emptyStars);
   const stock = product.stock - getQuantityInCart(product.id);
   return (
     <>
@@ -28,31 +24,7 @@ function Product({ product }) {
           </div>
           <div className="card-footer px-2">
             <div className="rating mb-2">
-              {stars.map((rating, index) => {
-                if (rating === 1) {
-                  return (
-                    <i
-                      key={index}
-                      className="bi bi-star-fill text-warning"
-                    ></i>
-                  );
-                } else if (rating === 0.5) {
-                  return (
-                    <i
-                      key={index}
-                      className="bi bi-star-half text-warning"
-                    ></i>
-                  );
-                } else {
-                  return (
-                    <i
-                      key={index}
-                      className="bi bi-star text-warning"
-                    ></i>
-                  );
-                }
-              })}
-
+              <StarsRating productRating = {product.rating}/>
               <span className="fs-6 fw-semibold">
                 <small> {product.rating}</small>
               </span>
