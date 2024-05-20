@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import ProductList from "./Components/ProductList";
 import Cart from "./Components/Cart";
-import Button from "./Components/Button";
 import Categories from "./Components/Categories";
 import "./App.css";
 import CartContextProvider from "./Components/CartContext";
@@ -58,7 +57,6 @@ function App() {
       fetch(API_URL)
         .then((res) => res.json())
         .then((data) => {
-          data.products[0].stock = 0;
           setProducts([...products, ...data.products]);
           if ([...products, ...data.products].length === data.total) {
             setAllProductsLoaded(true);
@@ -124,18 +122,9 @@ function App() {
                 <ProductList
                   products={products}
                   isLoading={isLoading}
+                  allProductsLoaded={allProductsLoaded}
+                  onLoadMore={fetchData}
                 ></ProductList>
-
-                {!allProductsLoaded && (
-                  <Button
-                    text={
-                      isLoading ? "Items are loading..." : "Load more items"
-                    }
-                    disabled={isLoading || category === ""}
-                    btnVariant="btn-primary"
-                    onClick={fetchData}
-                  />
-                )}
               </div>
             </div>
           </div>
