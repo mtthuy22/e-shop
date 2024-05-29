@@ -91,35 +91,34 @@ function Cart({ orderComplete, setOrderComplete }) {
           <div className="list-group mb-2">
             {cart.map((item) => (
               <div className="d-flex list-group-item row" key={item.id}>
-                <div className="col">{item.title}</div>
-                <div className="col">
+                <div className="col-4">{item.title}</div>
+                <div className="col-2">
                   {!orderComplete && (
                     <QuantityInput orderComplete={orderComplete} item={item} />
                   )}
                 </div>
 
-                <div className="col">
-                  <span>
+                <div className="col-3">
+                  <div className="text-decoration-line-through text-secondary-emphasis col">
+                    {(item.price * item.quantity).toFixed(2)} EUR
+                  </div>
+                  <div>
                     {(
                       discountCalculation(item.price, item.discountPercentage) *
                       item.quantity
-                    ).toFixed(2)}
-                    EUR
-                  </span>
-
-                  <span className="text-decoration-line-through col">
-                    {item.price * item.quantity}EUR
-                  </span>
+                    ).toFixed(2)} EUR
+                  </div>
                 </div>
-                <div className="col">
+                <div className="col d-flex">
                   {!orderComplete && (
                     <Button
                       type="button"
                       onClick={() => removeFromCart(item)}
                       btnVariant="btn-danger"
-                      addedClass="btn-sm ms-3"
+                      addedClass="btn-sm ms-auto"
                       text="Remove"
                     ></Button>
+                 
                   )}
                 </div>
               </div>
