@@ -5,17 +5,16 @@ function Categories({ chooseCategory, selectedCategory }) {
   const [allCategories, setAllCategories] = useState(["All products"]);
 
   function getCategories() {
-    fetch("https://dummyjson.com/products/categories")
+    fetch("https://dummyjson.com/products/category-list")
       .then((res) => res.json())
       .then((data) => {
         setAllCategories([...allCategories, ...data]);
       });
   }
-
+console.log(allCategories)
   useEffect(() => {
     getCategories();
   }, []);
-
   return (
   
       allCategories.map((category) => (
