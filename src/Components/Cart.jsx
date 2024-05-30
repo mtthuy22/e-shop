@@ -70,7 +70,7 @@ function Cart({ orderComplete, setOrderComplete }) {
 
   return (
     <>
-      <div className="cart bg-secondary bg-opacity-75 text-light mb-5 py-4">
+      <div className="cart text-secondary-emphasis mb-5 py-4">
         <div className="container">
           {cartIsLoading ? (
             <p className="text-center text-uppercase fw-semibold">
@@ -88,17 +88,17 @@ function Cart({ orderComplete, setOrderComplete }) {
             </p>
           )}
 
-          <div className="list-group mb-2">
+          <div className="list-group list-group-flush mb-2">
             {cart.map((item) => (
               <div className="d-flex list-group-item row" key={item.id}>
-                <div className="col-4">{item.title}</div>
-                <div className="col-2">
+                <div className="col">{item.title}</div>
+                <div className="col">
                   {!orderComplete && (
                     <QuantityInput orderComplete={orderComplete} item={item} />
                   )}
                 </div>
 
-                <div className="col-3">
+                <div className="col">
                   <div className="text-decoration-line-through text-secondary-emphasis col">
                     {(item.price * item.quantity).toFixed(2)} EUR
                   </div>
@@ -109,13 +109,13 @@ function Cart({ orderComplete, setOrderComplete }) {
                     ).toFixed(2)} EUR
                   </div>
                 </div>
-                <div className="col d-flex">
+                <div className="col">
                   {!orderComplete && (
                     <Button
                       type="button"
                       onClick={() => removeFromCart(item)}
                       btnVariant="btn-danger"
-                      addedClass="btn-sm ms-auto"
+                      addedClass="btn-sm d-inline ms-auto"
                       text="Remove"
                     ></Button>
                  

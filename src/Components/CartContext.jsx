@@ -6,7 +6,7 @@ export const CartContext = createContext();
 function CartContextProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [cartIsLoading, setCartIsLoading] = useState(true);
-  const user = 10;
+  const user = 11;
   //const user = Math.floor(Math.random() * 20 + 1);
 
   function getQuantityInCart(productId) {
