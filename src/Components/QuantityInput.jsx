@@ -7,7 +7,7 @@ function QuantityInput({ item, orderComplete }) {
   const [cartQuantity, setCartQuantity] = useState(item.quantity);
   const { addQuantity, decreaseQuantity, updateNewQuantity } =
     useContext(CartContext);
-  console.log("id:", item.id, "stock:", item.stock);
+
   function inputQuantity(e) {
     let input = e.target.value;
     let numInput = Math.abs(parseInt(input));
@@ -41,7 +41,9 @@ function QuantityInput({ item, orderComplete }) {
         type="number"
         className="form-control form-control-sm rounded-0"
         onChange={inputQuantity}
-        onBlur={() => updateNewQuantity(item.id, Math.min(item.quantity, item.stock))}
+        onBlur={() =>
+          updateNewQuantity(item.id, Math.min(item.quantity, item.stock))
+        }
         value={cartQuantity}
       />
       <Button
