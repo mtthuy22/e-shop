@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import ProductList from "./Components/ProductList";
 import Cart from "./Components/Cart";
 import Categories from "./Components/Categories";
-import "./App.css";
 import CartContextProvider from "./Components/CartContext";
 import { textTransform } from "./Components/helpers";
+import OffCanvasComponent from "./Components/OffCanvasComponent";
+
 
 function App() {
   const [orderComplete, setOrderComplete] = useState(false);
@@ -92,12 +93,14 @@ function App() {
                 aria-label="Search"
               />
             </form>
+            <OffCanvasComponent>
+              <Cart
+                orderComplete={orderComplete}
+                setOrderComplete={setOrderComplete}
+              />
+            </OffCanvasComponent>
           </div>
         </nav>
-        <Cart
-          orderComplete={orderComplete}
-          setOrderComplete={setOrderComplete}
-        />
 
         {!orderComplete && (
           <div className="container">
