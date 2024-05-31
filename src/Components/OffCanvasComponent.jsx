@@ -1,7 +1,9 @@
 import { useState, useContext } from "react";
 import { CartContext } from "./CartContext";
 import Button from "react-bootstrap/Button";
+import Badge from 'react-bootstrap/Badge';
 import Offcanvas from "react-bootstrap/Offcanvas";
+import "./OffCanvasComponent.css"
 
 function OffCanvasComponent({children}) {
   const [show, setShow] = useState(false);
@@ -9,14 +11,17 @@ function OffCanvasComponent({children}) {
   const handleShow = () => setShow(true);
 
   const { cart } = useContext(CartContext);
-  console.log(cart);
+
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
         <i className="bi bi-cart"></i>
+        <span className="ms-1">
+          <Badge bg="secondary">{cart.length}</Badge>
+        </span>
       </Button>
 
-      <Offcanvas show={show} onHide={handleClose} placement="end" scroll>
+      <Offcanvas className="custom-offcanvas" show={show} onHide={handleClose} placement="end" scroll={true}>
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Your cart</Offcanvas.Title>
         </Offcanvas.Header>
