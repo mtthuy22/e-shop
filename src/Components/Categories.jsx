@@ -11,7 +11,6 @@ function Categories({ chooseCategory, selectedCategory }) {
         setAllCategories([...allCategories, ...data]);
       });
   }
-console.log(allCategories)
   useEffect(() => {
     getCategories();
   }, []);

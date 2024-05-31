@@ -3,6 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import Button from "./Button";
 import { CartContext } from "./CartContext";
 
+
 function QuantityInput({ item, orderComplete }) {
   const [cartQuantity, setCartQuantity] = useState(item.quantity);
   const { addQuantity, decreaseQuantity, updateNewQuantity } =
@@ -28,18 +29,17 @@ function QuantityInput({ item, orderComplete }) {
   }, [item.quantity]);
 
   return (
-    <div className="btn-group ms-2">
+    <div className="button-group ms-2 d-flex">
       <Button
         btnVariant="btn-outline-primary"
         type="button"
-        text="+"
-        addedClass="btn-circle"
+        addedClass="bi bi-plus rounded-0 btn-sm"
         disabled={orderComplete || item.quantity === item.stock}
         onClick={() => addQuantity(item)}
       ></Button>
       <input
         type="number"
-        className="form-control form-control-sm rounded-0"
+        className="form-control rounded-0"
         onChange={inputQuantity}
         onBlur={() =>
           updateNewQuantity(item.id, Math.min(item.quantity, item.stock))
@@ -49,8 +49,7 @@ function QuantityInput({ item, orderComplete }) {
       <Button
         btnVariant="btn-outline-danger"
         type="button"
-        text="-"
-        addedClass="btn-circle"
+        addedClass="bi bi-dash rounded-0 btn-sm"
         disabled={orderComplete || item.quantity === 1}
         onClick={() => decreaseQuantity(item)}
       ></Button>
