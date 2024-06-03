@@ -90,14 +90,14 @@ function Cart({ orderComplete, setOrderComplete }) {
         <div className="list-group list-group-flush mb-2">
           {cart.map((item) => (
             <div className="d-flex list-group-item row pt-2" key={item.id}>
-              <div className="col-5">{item.title}</div>
-              <div className="col">
+              <div className=" col col-md-5 col-12">{item.title}</div>
+              <div className=" col col-md-2 col-5">
                 {!orderComplete && (
                   <QuantityInput orderComplete={orderComplete} item={item} />
                 )}
               </div>
 
-              <div className="col">
+              <div className="col col-md-3 col-5">
                 <div className="text-decoration-line-through text-secondary-emphasis">
                   {(item.price * item.quantity).toFixed(2)} EUR
                 </div>
@@ -109,7 +109,7 @@ function Cart({ orderComplete, setOrderComplete }) {
                   EUR
                 </div>
               </div>
-              <div className="col d-flex">
+              <div className="col col-2 d-flex">
                 {!orderComplete && (
                   <Button
                     type="button"

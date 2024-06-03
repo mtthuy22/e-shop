@@ -16,7 +16,7 @@ function OffCanvasComponent({children}) {
     <>
       <Button variant="primary" onClick={handleShow}>
         <i className="bi bi-cart"></i>
-        <span className="ms-1">
+        <span className="ms-2">
           <Badge bg="secondary">{cart.length}</Badge>
         </span>
       </Button>

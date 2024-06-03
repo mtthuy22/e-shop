@@ -33,13 +33,13 @@ function QuantityInput({ item, orderComplete }) {
       <Button
         btnVariant="btn-outline-primary"
         type="button"
-        addedClass="bi bi-plus rounded-0 btn-sm"
+        addedClass="bi bi-plus rounded-0 btn-sm p-1"
         disabled={orderComplete || item.quantity === item.stock}
         onClick={() => addQuantity(item)}
       ></Button>
       <input
-        type="number"
-        className="form-control rounded-0"
+        type="text"
+        className="form-control text-center rounded-0 p-1"
         onChange={inputQuantity}
         onBlur={() =>
           updateNewQuantity(item.id, Math.min(item.quantity, item.stock))
@@ -49,7 +49,7 @@ function QuantityInput({ item, orderComplete }) {
       <Button
         btnVariant="btn-outline-danger"
         type="button"
-        addedClass="bi bi-dash rounded-0 btn-sm"
+        addedClass="bi bi-dash rounded-0 btn-sm p-1"
         disabled={orderComplete || item.quantity === 1}
         onClick={() => decreaseQuantity(item)}
       ></Button>
