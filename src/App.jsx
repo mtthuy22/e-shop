@@ -80,7 +80,7 @@ function App() {
   return (
     <CartContextProvider>
       <div className="App">
-        <nav className="navbar navbar-light bg-light justify-content-between">
+        <nav className="navbar navbar-light bg-light justify-content-between mb-2">
           <div className="container-fluid">
             <h1 className="navbar-brand">Products E-shop</h1>
             <form className="form-inline" role="search">
