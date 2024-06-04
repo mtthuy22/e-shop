@@ -39,7 +39,7 @@ function QuantityInput({ item, orderComplete }) {
       ></Button>
       <input
         type="text"
-        className="form-control text-center rounded-0 p-1"
+        className="form-control text-center rounded-0 p-0"
         onChange={inputQuantity}
         onBlur={() =>
           updateNewQuantity(item.id, Math.min(item.quantity, item.stock))

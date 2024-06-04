@@ -89,9 +89,9 @@ function Cart({ orderComplete, setOrderComplete }) {
 
         <div className="list-group list-group-flush mb-2">
           {cart.map((item) => (
-            <div className="d-flex list-group-item row pt-2" key={item.id}>
+            <div className="d-flex list-group-item row row-gap-1 pt-2" key={item.id}>
               <div className=" col col-md-5 col-12">{item.title}</div>
-              <div className=" col col-md-2 col-5">
+              <div className=" col col-md-3 col-5">
                 {!orderComplete && (
                   <QuantityInput orderComplete={orderComplete} item={item} />
                 )}
@@ -109,7 +109,7 @@ function Cart({ orderComplete, setOrderComplete }) {
                   EUR
                 </div>
               </div>
-              <div className="col col-2 d-flex">
+              <div className="col col-1 d-flex">
                 {!orderComplete && (
                   <Button
                     type="button"
