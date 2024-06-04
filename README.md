@@ -1,6 +1,6 @@
 # E-shop 
 
-A fictional responsive e-shop project built entirely using React.js for functionality and Bootstrap for layout. The data are fetched using DummyJSON API.The project is ongoing, additional features are worked on gradually. 
+A fictional responsive e-shop project built entirely using React.js for functionality and Bootstrap for layout. The data are fetched using DummyJSON API. The project is ongoing, additional features are worked on gradually. 
 
 Live at: 
 https://mtthuy22.github.io/e-shop/
@@ -19,13 +19,14 @@ https://mtthuy22.github.io/e-shop/
 - Bootstrap
 - React.js
 - JavaScript
+- React Bootstrap
 
-## Available Scripts
+## Setup 
+Prerequisites: Node.js, npm 
+1. Clone the repository to your local machine.
+2. Go into the project's directory.
+3. Run `npm install` to install the dependencies. 
+4. Run `npm start` to open app in the development mode. 
+5. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
