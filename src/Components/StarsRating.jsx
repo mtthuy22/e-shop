@@ -8,7 +8,6 @@ function StarsRating({ productRating }) {
   stars.push(...emptyStars);
 
   return (
-    // stars.map((rating,index) =>
     stars.map((rating, index) => (
       <i key={index} className={`bi bi-${rating} text-warning`}></i>
     ))
