@@ -1,6 +1,6 @@
 # E-shop 
 
-A fictional responsive e-shop project built entirely using React.js for functionality and Bootstrap for layout. The data are fetched using DummyJSON API. The project is ongoing, additional features are worked on gradually. 
+A fictional responsive e-shop project built entirely using React.js for functionality and Bootstrap for layout. The data are fetched using (DummyJSON API)[https://dummyjson.com/]. The project is ongoing, additional features are worked on gradually. 
 
 Live at: 
 https://mtthuy22.github.io/e-shop/
