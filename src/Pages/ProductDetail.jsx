@@ -13,7 +13,7 @@ const ProductDetail = () => {
   const getProduct = (id) => {
     try {
       setProductIsLoading(true);
-
+      showErrorMessage(false);
       fetch(`https://dummyjson.com/products/${id}`)
         .then((res) => res.json())
         .then((data) => {

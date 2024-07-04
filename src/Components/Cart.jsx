@@ -5,7 +5,8 @@ import CheckoutForm from "./CheckoutForm";
 import { discountCalculation } from "./helpers";
 import QuantityInput from "./QuantityInput";
 
-function Cart({ orderComplete, setOrderComplete }) {
+function Cart() {
+  const [orderComplete, setOrderComplete] = useState(false)
   const [checkOut, setCheckOut] = useState(false);
   const { resetCart, cartIsLoading, cart, removeFromCart } =
     useContext(CartContext);
