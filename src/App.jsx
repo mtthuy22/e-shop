@@ -34,7 +34,6 @@ const router = createBrowserRouter(
 function App() {
   return (
     <CartContextProvider>
-      <Navbar />
       <RouterProvider router={router} />
     </CartContextProvider>
   );

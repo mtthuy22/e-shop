@@ -1,9 +1,11 @@
 import Categories from "../Components/Categories";
 import { Outlet } from "react-router-dom";
+import Navbar from "../Components/Navbar";
 
 function Home() {
   return (
     <div className="App">
+      <Navbar />
       <div className="container">
         <div className="row mb-3 row-gap-3">
           <div
