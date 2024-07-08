@@ -4,23 +4,28 @@ import Home from "./Pages/Home";
 import ErrorPage from "./Pages/ErrorPage";
 import ProductDetail from "./Pages/ProductDetail";
 import ProductCategory from "./Pages/ProductCategory";
-import Categories from "./Components/Categories";
 import Navbar from "./Components/Navbar";
+import AllProducts from "./Pages/AllProducts";
 
 const router = createBrowserRouter(
   [
     {
-      path: "/",
       element: <Home />,
       errorElement: <ErrorPage />,
-    },
-    {
-      path: "/products/:productId",
-      element: <ProductDetail />,
-    },
-    {
-      path: "/categories/:categoryId",
-      element: <ProductCategory />,
+      children: [
+        {
+          path: "/products/:productId",
+          element: <ProductDetail />,
+        },
+        {
+          path: "/categories/:categoryId",
+          element: <ProductCategory />,
+        },
+        {
+          path: "/",
+          element: <AllProducts />,
+        },
+      ],
     },
   ],
   { basename: "/e-shop" }
@@ -30,7 +35,6 @@ function App() {
   return (
     <CartContextProvider>
       <Navbar />
-      <Categories/>
       <RouterProvider router={router} />
     </CartContextProvider>
   );
