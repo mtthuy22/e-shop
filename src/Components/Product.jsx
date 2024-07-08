@@ -75,7 +75,7 @@ function Product({ product }) {
               )}
             </div>
             <p className="card-text">
-              <small>{stock ? `In stock: ${stock}` : `Unavailable`}</small>
+              <small className={stock ? "" : "text-danger"}>{stock ? `In stock: ${stock}` : `Unavailable`}</small>
             </p>
           </div>
         </div>

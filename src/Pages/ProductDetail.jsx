@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import StarsRating from "../Components/StarsRating";
+import { CartContext } from "../Components/CartContext";
 import { discountCalculation } from "../Components/helpers";
+import Button from "../Components/Button";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const [productIsLoading, setProductIsLoading] = useState(true);
   const [errorMessage, showErrorMessage] = useState(false);
-
+  const { addToCart, getQuantityInCart } = useContext(CartContext);
+  const stock = product.stock - getQuantityInCart(product.id);
   let { productId } = useParams();
 
   const getProduct = (id) => {
@@ -39,10 +42,13 @@ const ProductDetail = () => {
   if (errorMessage) {
     return (
       <div class="card text-bg-danger mb-3">
-        <div class="card-header"><i class="bi bi-exclamation-triangle-fill"></i>Error</div>
+        <div class="card-header">
+          <i class="bi bi-exclamation-triangle-fill"></i>Error
+        </div>
         <div class="card-body">
           <p class="card-text">
-            Unexpected error while loading product. Please check your internet connection.
+            Unexpected error while loading product. Please check your internet
+            connection.
           </p>
         </div>
       </div>
@@ -80,12 +86,26 @@ const ProductDetail = () => {
                       ).toFixed(2)}{" "}
                       EUR
                     </p>
-                    <button type="button" class="btn btn-primary">
-                      Add to cart
-                    </button>
+                    {stock ? (
+                      <Button
+                        type="button"
+                        onClick={() => addToCart(product)}
+                        btnVariant="btn-primary"
+                        text="Add to cart"
+                      ></Button>
+                    ) : (
+                      <Button
+                        type="button"
+                        btnVariant="btn-primary-outline"
+                        disabled={true}
+                        text="Out of stock"
+                      ></Button>
+                    )}
                   </div>
                   <div className="list-group-item ps-0">
-                    <small>In stock: {product.stock}</small>
+                    <small className={stock ? "" : "text-danger"}>
+                      {stock ? `In stock: ${stock}` : `Unavailable`}
+                    </small>
                   </div>
                 </div>
               </div>
