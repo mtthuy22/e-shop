@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { textTransform } from "./helpers";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Categories() {
   const [allCategories, setAllCategories] = useState([]);
@@ -30,18 +30,18 @@ function Categories() {
 
   return (
     <>
-      <Link to={`/`} className="list-group-item list-group-item-action w-auto">
+      <NavLink to={`/`} className="list-group-item list-group-item-action w-auto">
         All products
-      </Link>
+      </NavLink>
 
       {allCategories.map((category) => (
-        <Link
+        <NavLink
           key={category}
           className={`list-group-item list-group-item-action w-auto`}
           to={`/categories/${category}`}
         >
           {textTransform(category)}
-        </Link>
+        </NavLink>
       ))}
     </>
   );
