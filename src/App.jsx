@@ -4,8 +4,8 @@ import Home from "./Pages/Home";
 import ErrorPage from "./Pages/ErrorPage";
 import ProductDetail from "./Pages/ProductDetail";
 import ProductCategory from "./Pages/ProductCategory";
-import Navbar from "./Components/Navbar";
 import AllProducts from "./Pages/AllProducts";
+import SearchResults from "./Pages/SearchResults";
 
 const router = createBrowserRouter(
   [
@@ -25,6 +25,10 @@ const router = createBrowserRouter(
           path: "/",
           element: <AllProducts />,
         },
+        {
+          path: "/products",
+          element: <SearchResults />
+        }
       ],
     },
   ],
