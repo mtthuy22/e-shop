@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 
 export const CartContext = createContext();
 
-function CartContextProvider({ children }) {
+const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartIsLoading, setCartIsLoading] = useState(true);
   const user = 11;
@@ -140,5 +140,5 @@ function CartContextProvider({ children }) {
   return (
     <CartContext.Provider value={ContextValue}>{children}</CartContext.Provider>
   );
-}
+};
 export default CartContextProvider;

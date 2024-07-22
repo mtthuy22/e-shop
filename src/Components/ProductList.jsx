@@ -2,7 +2,7 @@ import React from "react";
 import Product from "./Product";
 import Button from "./Button";
 
-function ProductList({ products, isLoading, allProductsLoaded, onLoadMore }) {
+function ProductList({ products, isLoading, isEverythingLoaded, onLoadMore }) {
   if (isLoading) {
     return <p>Items are loading...</p>;
   }
@@ -19,7 +19,7 @@ function ProductList({ products, isLoading, allProductsLoaded, onLoadMore }) {
         ))}
       </div>
 
-      {!allProductsLoaded && (
+      {!isEverythingLoaded && (
         <Button
           text="Load more items"
           btnVariant="btn-primary"

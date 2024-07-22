@@ -5,8 +5,8 @@ import CheckoutForm from "./CheckoutForm";
 import { discountCalculation } from "./helpers";
 import QuantityInput from "./QuantityInput";
 
-function Cart() {
-  const [orderComplete, setOrderComplete] = useState(false)
+const Cart = () => {
+  const [orderComplete, setOrderComplete] = useState(false);
   const [checkOut, setCheckOut] = useState(false);
   const { resetCart, cartIsLoading, cart, removeFromCart } =
     useContext(CartContext);
@@ -90,7 +90,10 @@ function Cart() {
 
         <div className="list-group list-group-flush mb-2">
           {cart.map((item) => (
-            <div className="d-flex list-group-item row row-gap-1 pt-2" key={item.id}>
+            <div
+              className="d-flex list-group-item row row-gap-1 pt-2"
+              key={item.id}
+            >
               <div className=" col col-md-5 col-12">{item.title}</div>
               <div className=" col col-md-3 col-5">
                 {!orderComplete && (
@@ -141,5 +144,5 @@ function Cart() {
       </div>
     </>
   );
-}
+};
 export default Cart;

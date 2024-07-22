@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { textTransform } from "./helpers";
 import { Link, NavLink } from "react-router-dom";
 
-function Categories() {
+const Categories = () => {
   const [allCategories, setAllCategories] = useState([]);
   const [loadingCategories, setLoadingCategories] = useState(false);
   

@@ -36,7 +36,7 @@ const AllProducts = () => {
     return (
         <>
         <h2>All products</h2>
-        <ProductList products={products} isLoading={isLoading} allProductsLoaded={allProductsLoaded}
+        <ProductList products={products} isLoading={isLoading} isEverythingLoaded={allProductsLoaded}
         onLoadMore={getProducts}/>
         </>
     )

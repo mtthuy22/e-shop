@@ -2,7 +2,7 @@ import Categories from "../Components/Categories";
 import { Outlet } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 
-function Home() {
+const Home = () => {
   return (
     <div className="App">
       <Navbar />
@@ -20,6 +20,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;

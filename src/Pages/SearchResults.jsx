@@ -5,16 +5,19 @@ import { useSearchParams } from "react-router-dom";
 const SearchResults = () => {
   const [searchResults, setSearchResults] = useState([]);
   const productsPerPage = 48;
+  const [allSearchResults, setAllSearchResult] = useState(false);
   const [searchIsLoading, setSearchIsLoading] = useState(true);
+
   const [timerId, setTimerId] = useState();
 
-  let [searchParams, setSearchParams] = useSearchParams();
+  let [searchParams] = useSearchParams();
   let searchTerm = searchParams.get("search");
 
-  const debounceSearch = () => {
+  function debounceSearch() {
+    setSearchResults([]);
     let timerId = setTimeout(getSearchResults, 1500);
     setTimerId(timerId);
-  };
+  }
 
   const getSearchResults = () => {
     try {
@@ -24,7 +27,10 @@ const SearchResults = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          setSearchResults(data.products);
+          setSearchResults([...searchResults, ...data.products]);
+          if ([...searchResults, ...data.products].length === data.total) {
+            setAllSearchResult(true);
+          }
           setSearchIsLoading(false);
         });
     } catch (error) {
@@ -34,10 +40,10 @@ const SearchResults = () => {
 
   useEffect(() => {
     if (searchTerm) {
-      getSearchResults();
+      // getSearchResults();
       debounceSearch();
-      clearTimeout(timerId);
     }
+    clearTimeout(timerId);
   }, [searchTerm]);
 
   if (searchIsLoading) {
@@ -46,11 +52,12 @@ const SearchResults = () => {
 
   return (
     <>
-      <h2>All products</h2>
+      <h2>Search results</h2>
       <ProductList
         products={searchResults}
         isLoading={searchIsLoading}
         onLoadMore={getSearchResults}
+        isEverythingLoaded={allSearchResults}
       />
     </>
   );

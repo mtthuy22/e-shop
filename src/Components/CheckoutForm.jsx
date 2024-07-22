@@ -3,7 +3,7 @@ import { useContext, useState, useEffect } from "react";
 import Button from "./Button";
 import { CartContext } from "./CartContext";
 
-function CheckoutForm({ toComplete }) {
+const CheckoutForm = ({ toComplete }) => {
   const [email, setEmail] = useState("");
   const [displayValidation, setDisplayValidation] = useState(false);
   let emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
@@ -99,6 +99,6 @@ function CheckoutForm({ toComplete }) {
       </form>
     </>
   );
-}
+};
 
 export default CheckoutForm;

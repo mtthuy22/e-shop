@@ -24,9 +24,9 @@ const SearchInput = () => {
         placeholder="Search"
         aria-label="Search"
       />
-      <button class="btn btn-outline-primary" type="submit">
+      {/* <button class="btn btn-outline-primary" type="submit">
         Search
-      </button>
+      </button> */}
     </form>
   );
 };
