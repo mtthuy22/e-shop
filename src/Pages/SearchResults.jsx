@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ProductList from "../Components/ProductList";
-import { useSearchParams } from "react-router-dom";
+
+import { Link, useSearchParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 const SearchResults = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -40,11 +42,26 @@ const SearchResults = () => {
 
   useEffect(() => {
     if (searchTerm) {
-      // getSearchResults();
       debounceSearch();
     }
     clearTimeout(timerId);
   }, [searchTerm]);
+
+  if (searchTerm === "") {
+    return (
+      <>
+        <h2>Search results</h2>
+        <p>
+         Not sure what to look for? Discover our extensive collection of products!
+        </p>
+        <Button variant="primary">
+          <Link to="/" className="text-white text-decoration-none">
+            See all our products
+          </Link>
+        </Button>
+      </>
+    );
+  }
 
   if (searchIsLoading) {
     return <p>Searching for products...</p>;

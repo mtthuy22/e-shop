@@ -1,6 +1,7 @@
 import React from "react";
 import Product from "./Product";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 function ProductList({ products, isLoading, isEverythingLoaded, onLoadMore }) {
   if (isLoading) {
@@ -8,7 +9,14 @@ function ProductList({ products, isLoading, isEverythingLoaded, onLoadMore }) {
   }
 
   if (products.length === 0) {
-    return <p>No products have been found</p>;
+    return (
+      <>
+        <p>No products have been found.</p>
+        <button type="button" className="btn btn-primary">
+          <Link className="text-white text-decoration-none" to="/">Go back to shop</Link>
+        </button>
+      </>
+    );
   }
 
   return (
