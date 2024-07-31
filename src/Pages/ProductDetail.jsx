@@ -4,6 +4,7 @@ import StarsRating from "../Components/StarsRating";
 import { CartContext } from "../Components/CartContext";
 import { discountCalculation } from "../Components/helpers";
 import Button from "../Components/Button";
+import ImageGallery from "../Components/ImageGallery";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
@@ -61,11 +62,7 @@ const ProductDetail = () => {
         <div className="card mb-3 border-0">
           <div className="row g-0">
             <div className="col-md-4">
-              <img
-                src={product.thumbnail}
-                className="img-fluid"
-                alt={product.title}
-              />
+              <ImageGallery images={product.images} alt={product.title} />
             </div>
             <div className="col-md-8">
               <div className="card-body">
@@ -123,7 +120,15 @@ const ProductDetail = () => {
                 </div>
                 <p className="card-text">{review.comment}</p>
                 <p class="card-text">
-                  <small class="text-body-secondary">{review.date}</small>
+                  <small class="text-body-secondary">
+                    {new Date(review.date).toLocaleTimeString([], {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </small>
                 </p>
               </div>
             </div>
