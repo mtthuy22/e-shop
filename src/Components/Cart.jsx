@@ -4,6 +4,7 @@ import { CartContext } from "./CartContext";
 import CheckoutForm from "./CheckoutForm";
 import { discountCalculation } from "./helpers";
 import QuantityInput from "./QuantityInput";
+import { Image } from "react-bootstrap";
 
 const Cart = () => {
   const [orderComplete, setOrderComplete] = useState(false);
@@ -94,7 +95,10 @@ const Cart = () => {
               className="d-flex list-group-item row row-gap-1 pt-2"
               key={item.id}
             >
-              <div className=" col col-md-5 col-12">{item.title}</div>
+              <div className="col col-md-1 col-3">
+                <Image src={item.thumbnail} fluid/>
+              </div>
+              <div className=" col col-md-4 col-9">{item.title}</div>
               <div className=" col col-md-3 col-5">
                 {!orderComplete && (
                   <QuantityInput orderComplete={orderComplete} item={item} />

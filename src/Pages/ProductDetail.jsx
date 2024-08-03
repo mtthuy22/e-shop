@@ -121,12 +121,12 @@ const ProductDetail = () => {
                 <p className="card-text">{review.comment}</p>
                 <p class="card-text">
                   <small class="text-body-secondary">
-                    {new Date(review.date).toLocaleTimeString([], {
+                    {new Date(review.date).toLocaleTimeString("en-GB", {
                       day: "2-digit",
                       month: "2-digit",
                       year: "numeric",
                       hour: "2-digit",
-                      minute: "2-digit",
+                      minute: "2-digit"
                     })}
                   </small>
                 </p>
