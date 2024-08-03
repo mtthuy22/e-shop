@@ -6,11 +6,17 @@ export const CartContext = createContext();
 const CartContextProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartIsLoading, setCartIsLoading] = useState(true);
+  const [badgeBg, setBadgeBg] = useState("secondary");
   const user = 11;
   //const user = Math.floor(Math.random() * 20 + 1);
 
   function getQuantityInCart(productId) {
     return cart.find((cartItem) => cartItem.id === productId)?.quantity ?? 0;
+  }
+
+  function badgeColorChange(){
+    setBadgeBg("warning");
+    setTimeout(() => setBadgeBg("secondary"), 500);
   }
 
   function updateCart(product, updatedQuantity) {
@@ -68,6 +74,7 @@ const CartContextProvider = ({ children }) => {
       setCart([...cart, { ...product, quantity: 1 }]);
       updateCart(product, 1);
     }
+   
   }
 
   function isInCart(productId) {
@@ -77,6 +84,7 @@ const CartContextProvider = ({ children }) => {
   function removeFromCart(product) {
     setCart(cart.filter((item) => item !== product));
     updateCart(product, 0);
+    badgeColorChange()
   }
 
   function addQuantity(product) {
@@ -88,6 +96,7 @@ const CartContextProvider = ({ children }) => {
         return p;
       })
     );
+    badgeColorChange()
     const updatedQuantity = cart.find((p) => p.id === product.id).quantity + 1;
     updateCart(product, updatedQuantity);
   }
@@ -101,6 +110,7 @@ const CartContextProvider = ({ children }) => {
         return p;
       })
     );
+    badgeColorChange()
     const updatedQuantity = product.quantity - 1;
     updateCart(product, updatedQuantity);
   }
@@ -136,6 +146,7 @@ const CartContextProvider = ({ children }) => {
     decreaseQuantity,
     getQuantityInCart,
     updateNewQuantity,
+    badgeBg,
   }; //data to be used in other components
   return (
     <CartContext.Provider value={ContextValue}>{children}</CartContext.Provider>
