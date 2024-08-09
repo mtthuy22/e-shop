@@ -4,28 +4,29 @@ import Button from "./Button";
 import { CartContext } from "./CartContext";
 
 
-function QuantityInput({ item, orderComplete }) {
-  const [cartQuantity, setCartQuantity] = useState(item.quantity);
-  const { addQuantity, decreaseQuantity, updateNewQuantity } =
-    useContext(CartContext);
+function QuantityInput({ itemId, orderComplete }) {
+  const { addQuantity, decreaseQuantity, updateNewQuantity, cart } = useContext(CartContext);
+  const item = cart.find((item)=> item.id === itemId)
+  const [cartQuantity, setCartQuantity] = useState(item ? item.quantity : 1)
+
 
   function inputQuantity(e) {
     let input = e.target.value;
     let numInput = Math.abs(parseInt(input));
     if (isNaN(numInput)) {
       setCartQuantity(input);
-      updateNewQuantity(item.id, 1);
+      updateNewQuantity(itemId, 1);
     } else if (numInput === 0) {
       setCartQuantity("");
-      updateNewQuantity(item.id, 1);
+      updateNewQuantity(itemId, 1);
     } else {
       setCartQuantity(numInput);
-      updateNewQuantity(item.id, numInput);
+      updateNewQuantity(itemId, numInput);
     }
   }
 
   useEffect(() => {
-    setCartQuantity(item.quantity);
+    setCartQuantity(item ? item.quantity : 1);
   }, [item.quantity]);
 
   return (

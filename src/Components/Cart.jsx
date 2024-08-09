@@ -95,17 +95,17 @@ const Cart = () => {
               className="d-flex list-group-item row row-gap-1 pt-2"
               key={item.id}
             >
-              <div className="col col-md-1 col-3">
+              <div className="col col-md-1">
                 <Image src={item.thumbnail} fluid/>
               </div>
               <div className=" col col-md-4 col-9">{item.title}</div>
-              <div className=" col col-md-3 col-5">
+              <div className=" col col-md-3 col-9">
                 {!orderComplete && (
-                  <QuantityInput orderComplete={orderComplete} item={item} />
+                  <QuantityInput orderComplete={orderComplete} itemId={item.id} />
                 )}
               </div>
 
-              <div className="col col-md-3 col-5">
+              <div className="col col-md-3 col-9">
                 <div className="text-decoration-line-through text-secondary-emphasis">
                   {(item.price * item.quantity).toFixed(2)} EUR
                 </div>
