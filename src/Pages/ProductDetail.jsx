@@ -84,24 +84,27 @@ const ProductDetail = () => {
                       ).toFixed(2)}{" "}
                       EUR
                     </p>
-                   {isInCart(product.id) ? (
-                      <QuantityInput itemId = {product.id}/>
-                    ) : 
-                    stock ? (
-                      <Button
-                        type="button"
-                        onClick={() => addToCart(product)}
-                        btnVariant="btn-primary"
-                        text="Add to cart"
-                      ></Button>
-                    ) : (
-                      <Button
-                        type="button"
-                        btnVariant="btn-primary-outline"
-                        disabled={true}
-                        text="Out of stock"
-                      ></Button>
-                    )}
+                    <div className="row">
+                      <div className="col-6 col-sm-5 col-md-6 col-lg-4">
+                        {isInCart(product.id) ? (
+                          <QuantityInput itemId={product.id} />
+                        ) : stock ? (
+                          <Button
+                            type="button"
+                            onClick={() => addToCart(product)}
+                            btnVariant="btn-primary"
+                            text="Add to cart"
+                          ></Button>
+                        ) : (
+                          <Button
+                            type="button"
+                            btnVariant="btn-primary-outline"
+                            disabled={true}
+                            text="Out of stock"
+                          ></Button>
+                        )}
+                      </div>
+                    </div>
                   </div>
                   <div className="list-group-item ps-0">
                     <small className={stock ? "" : "text-danger"}>
