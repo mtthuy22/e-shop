@@ -60,7 +60,7 @@ const CheckoutForm = ({ toComplete }) => {
           Send order to:
         </label>
         <div className="row">
-          <div className="col-sm-4 col-md-3">
+          <div className="col-12">
             <input
               type="email"
               className={`form-control ${

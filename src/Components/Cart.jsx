@@ -7,17 +7,17 @@ import QuantityInput from "./QuantityInput";
 import { Image } from "react-bootstrap";
 
 const Cart = () => {
-  const [orderComplete, setOrderComplete] = useState(false);
-  const [checkOut, setCheckOut] = useState(false);
+  const [orderIsCompleted, setOrderIsCompleted] = useState(false);
+  const [checkedOut, setCheckedOut] = useState(false);
   const { resetCart, cartIsLoading, cart, removeFromCart } =
     useContext(CartContext);
 
   function toComplete() {
-    setOrderComplete(true);
+    setOrderIsCompleted(true);
   }
 
   function toCheckOut() {
-    setCheckOut(true);
+    setCheckedOut(true);
   }
 
   function totalPrice() {
@@ -39,14 +39,14 @@ const Cart = () => {
   }
 
   function resetShop() {
-    setOrderComplete(false);
-    setCheckOut(false);
+    setOrderIsCompleted(false);
+    setCheckedOut(false);
     resetCart();
   }
 
-  let checkOutComponent;
+  let checkOutComponent = null;
 
-  if (orderComplete) {
+  if (orderIsCompleted) {
     checkOutComponent = (
       <Button
         type="button"
@@ -55,7 +55,7 @@ const Cart = () => {
         onClick={() => resetShop()}
       ></Button>
     );
-  } else if (checkOut) {
+  } else if (checkedOut) {
     checkOutComponent = <CheckoutForm toComplete={toComplete}></CheckoutForm>;
   } else if (cart.length !== 0) {
     checkOutComponent = (
@@ -66,9 +66,7 @@ const Cart = () => {
         text="Check-out"
       ></Button>
     );
-  } else {
-    checkOutComponent = "";
-  }
+  } 
 
   return (
     <>
@@ -77,9 +75,9 @@ const Cart = () => {
           <p className="text-center text-uppercase fw-semibold">
             Your cart is loading
           </p>
-        ) : checkOut ? (
+        ) : checkedOut ? (
           <p className="text-center text-uppercase fw-semibold">
-            {orderComplete
+            {orderIsCompleted
               ? "Your order has been completed"
               : "Your order summary"}
           </p>
@@ -92,33 +90,38 @@ const Cart = () => {
         <div className="list-group list-group-flush mb-2">
           {cart.map((item) => (
             <div
-              className="d-flex list-group-item row row-gap-1 pt-2"
+              className="d-flex list-group-item row column-gap-2 pt-2"
               key={item.id}
             >
-              <div className="col col-md-1">
-                <Image src={item.thumbnail} fluid/>
-              </div>
-              <div className=" col col-md-4 col-9">{item.title}</div>
-              <div className=" col col-md-3 col-9">
-                {!orderComplete && (
-                  <QuantityInput orderComplete={orderComplete} itemId={item.id} />
-                )}
+              <div className="col-4 col-sm-1">
+                <Image src={item.thumbnail} fluid />
               </div>
 
-              <div className="col col-md-3 col-9">
-                <div className="text-decoration-line-through text-secondary-emphasis">
-                  {(item.price * item.quantity).toFixed(2)} EUR
+              <div className="row row-gap-2 col-7 col-sm-10">
+                <div className=" col col-sm-4 col-9">{item.title}</div>
+                <div className=" col col-sm-3 col-9 px-0">
+                  {!orderIsCompleted && (
+                    <QuantityInput
+                      orderComplete={orderIsCompleted}
+                      itemId={item.id}
+                    />
+                  )}
                 </div>
-                <div>
-                  {(
-                    discountCalculation(item.price, item.discountPercentage) *
-                    item.quantity
-                  ).toFixed(2)}{" "}
-                  EUR
+                <div className="col col-sm-3 col-9 text-sm-end">
+                  <div className="text-decoration-line-through text-secondary-emphasis">
+                    {(item.price * item.quantity).toFixed(2)} EUR
+                  </div>
+                  <div>
+                    {(
+                      discountCalculation(item.price, item.discountPercentage) *
+                      item.quantity
+                    ).toFixed(2)}{" "}
+                    EUR
+                  </div>
                 </div>
               </div>
-              <div className="col col-1 d-flex">
-                {!orderComplete && (
+              <div className="col col-1">
+                {!orderIsCompleted && (
                   <Button
                     type="button"
                     onClick={() => removeFromCart(item)}
@@ -144,7 +147,7 @@ const Cart = () => {
             </div>
           )}
         </div>
-        {checkOutComponent}
+        <div className="list-group-item d-flex justify-content-end">{checkOutComponent}</div>
       </div>
     </>
   );

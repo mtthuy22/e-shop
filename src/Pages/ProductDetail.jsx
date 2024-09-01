@@ -6,11 +6,15 @@ import { discountCalculation } from "../Components/helpers";
 import Button from "../Components/Button";
 import ImageGallery from "../Components/ImageGallery";
 import QuantityInput from "../Components/QuantityInput";
+import ReviewForm from "../Components/ReviewForm";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({});
   const [productIsLoading, setProductIsLoading] = useState(true);
   const [errorMessage, showErrorMessage] = useState(false);
+  const [viewReviewForm, setViewReviewForm] = useState(false);
+  const [reviews, setReviews] = useState([])
+
   const { addToCart, getQuantityInCart, isInCart } = useContext(CartContext);
   const stock = product.stock - getQuantityInCart(product.id);
   let { productId } = useParams();
@@ -23,6 +27,7 @@ const ProductDetail = () => {
         .then((res) => res.json())
         .then((data) => {
           setProduct(data);
+          setReviews(data.reviews);
           setProductIsLoading(false);
         });
     } catch (error) {
@@ -31,7 +36,28 @@ const ProductDetail = () => {
     }
   };
 
-  let reviews = product.reviews;
+  const updateProduct = (newReview) => {
+    fetch(`https://dummyjson.com/products/${productId}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        reviews: [...reviews, newReview]
+      }),
+    })
+      .then((res) => res.json())
+      .then(console.log);
+  };
+
+  const onFormSubmit = (newReview) => {
+    setReviews([...reviews, newReview])
+    updateProduct(newReview)
+    setViewReviewForm(false);
+  }
+
+  const cancelReview = () => {
+    setViewReviewForm(false)
+  }
+
 
   useEffect(() => {
     getProduct(productId);
@@ -71,7 +97,7 @@ const ProductDetail = () => {
                 <div className="list-group list-group-flush">
                   <div className="list-group-item ps-0 ">
                     <StarsRating productRating={product.rating} />
-                    <small> {product.reviews.length} reviews</small>
+                    <small> {reviews.length} reviews</small>
                   </div>
                   <div className="list-group-item ps-0">
                     <p>{product.description}</p>
@@ -85,7 +111,7 @@ const ProductDetail = () => {
                       EUR
                     </p>
                     <div className="row">
-                      <div className="col-6 col-sm-5 col-md-6 col-lg-4">
+                      <div className="col-6 col-sm-5 col-md-6 col-lg-4 px-0">
                         {isInCart(product.id) ? (
                           <QuantityInput itemId={product.id} />
                         ) : stock ? (
@@ -140,6 +166,16 @@ const ProductDetail = () => {
               </div>
             </div>
           ))}
+          {viewReviewForm ? (
+          <ReviewForm onFormSubmit={onFormSubmit} cancelReview={cancelReview}/>
+          ) : (
+            <Button
+              type="button"
+              onClick={() => setViewReviewForm(true)}
+              btnVariant="btn-primary"
+              text="Review product"
+            />
+          )}
         </div>
       </div>
     </>
