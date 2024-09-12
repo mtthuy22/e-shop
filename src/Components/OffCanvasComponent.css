@@ -2,3 +2,19 @@
     --bs-offcanvas-width: 750px;
 }
 
+.offcanvas.offcanvas-bottom.contactform-offcanvas  {
+  left:0;
+  --bs-offcanvas-height: 65vh;
+}
+
+@media (min-width: 768px) {
+  .offcanvas.offcanvas-bottom.contactform-offcanvas  {
+    left: 45vw; 
+  }
+ } 
+ 
+ @media (min-width: 1200px) { 
+  .offcanvas.offcanvas-bottom.contactform-offcanvas  {
+    left: 70vw; 
+  }
+  }

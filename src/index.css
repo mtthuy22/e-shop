@@ -12,7 +12,7 @@ code {
     monospace;
 }
 
-input[type="radio"]{
+input[type="radio"].star_input{
   display: none;
 }
 

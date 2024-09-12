@@ -17,6 +17,7 @@ const ReviewForm = ({onFormSubmit, cancelReview}) => {
           type="radio"
           name="rating"
           value={currentRating}
+          className="star_input"
           onChange={() => setUserRating(currentRating)}
         />
         <span

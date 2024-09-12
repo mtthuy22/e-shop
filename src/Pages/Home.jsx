@@ -1,6 +1,8 @@
-import Categories from "../Components/Categories";
 import { Outlet } from "react-router-dom";
+import Categories from "../Components/Categories";
 import Navbar from "../Components/Navbar";
+import ContactFormToggle from "../Components/ContactFormToggle";
+import ContactForm from "../Components/ContactForm";
 
 const Home = () => {
   return (
@@ -18,6 +20,13 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <footer className="bg-light p-2">
+        <div className="text-end">
+          <ContactFormToggle>
+            {(handleClose)=> <ContactForm onFormSubmit={handleClose}/>}
+          </ContactFormToggle>
+        </div>  
+      </footer>
     </div>
   );
 };
