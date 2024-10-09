@@ -5,8 +5,9 @@ import CheckoutForm from "./CheckoutForm";
 import { discountCalculation } from "./helpers";
 import QuantityInput from "./QuantityInput";
 import { Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const Cart = () => {
+const Cart = ({onCheckout}) => {
   const [orderIsCompleted, setOrderIsCompleted] = useState(false);
   const [checkedOut, setCheckedOut] = useState(false);
   const { resetCart, cartIsLoading, cart, removeFromCart } =
@@ -18,6 +19,7 @@ const Cart = () => {
 
   function toCheckOut() {
     setCheckedOut(true);
+    onCheckout();
   }
 
   function totalPrice() {
@@ -59,12 +61,15 @@ const Cart = () => {
     checkOutComponent = <CheckoutForm toComplete={toComplete}></CheckoutForm>;
   } else if (cart.length !== 0) {
     checkOutComponent = (
-      <Button
+      <Link to="/checkout">
+       <Button
         onClick={() => toCheckOut()}
         btnVariant="btn-dark"
         type="button"
         text="Check-out"
       ></Button>
+      </Link>
+     
     );
   } 
 
@@ -72,7 +77,7 @@ const Cart = () => {
     <>
       <div className="cart text-secondary-emphasis">
         {cartIsLoading ? (
-          <p className="text-center text-uppercase fw-semibold">
+          <p className="text-center text-uppercase fw-semibold alert alert-warning">
             Your cart is loading
           </p>
         ) : checkedOut ? (
@@ -82,7 +87,7 @@ const Cart = () => {
               : "Your order summary"}
           </p>
         ) : (
-          <p className="text-center text-uppercase fw-semibold">
+          <p className="text-center text-uppercase fw-semibold alert alert-primary">
             {cart.length ? "Currently in cart" : "Your cart is empty"}
           </p>
         )}

@@ -84,7 +84,7 @@ const ReviewForm = ({onFormSubmit, cancelReview}) => {
           Cancel
         </Button>
         <Button variant="primary" type="submit" onClick={handleSubmit}>
-          Submit
+          Add review 
         </Button>
       </div>
     </Form>

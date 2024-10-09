@@ -33,7 +33,7 @@ function OffCanvasComponent({ children }) {
         <Offcanvas.Header closeButton>
           <Offcanvas.Title>Your cart</Offcanvas.Title>
         </Offcanvas.Header>
-        <Offcanvas.Body>{children}</Offcanvas.Body>
+        <Offcanvas.Body>{children(handleClose)}</Offcanvas.Body>
       </Offcanvas>
     </>
   );

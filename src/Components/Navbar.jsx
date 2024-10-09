@@ -12,7 +12,7 @@ const Navbar = () => {
         <Link to={`/`} className="text-decoration-none"><h1 className="navbar-brand">Products E-shop</h1></Link>
         <SearchInput/>
         <OffCanvasComponent>
-          <Cart />
+          {(handleClose)=> <Cart onCheckout ={handleClose} />}
         </OffCanvasComponent>
       </div>
     </nav>
