@@ -20,7 +20,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <footer className="bg-light p-2">
+      <footer className="fixed-bottom bg-light p-2">
         <div className="text-end">
           <ContactFormToggle>
             {(handleClose)=> <ContactForm onFormSubmit={handleClose}/>}

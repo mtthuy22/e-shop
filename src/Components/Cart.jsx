@@ -61,7 +61,7 @@ const Cart = ({onCheckout}) => {
     checkOutComponent = <CheckoutForm toComplete={toComplete}></CheckoutForm>;
   } else if (cart.length !== 0) {
     checkOutComponent = (
-      <Link to="/checkout">
+      <Link to="/checkout2">
        <Button
         onClick={() => toCheckOut()}
         btnVariant="btn-dark"

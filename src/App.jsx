@@ -6,7 +6,8 @@ import ProductDetail from "./Pages/ProductDetail";
 import ProductCategory from "./Pages/ProductCategory";
 import AllProducts from "./Pages/AllProducts";
 import SearchResults from "./Pages/SearchResults";
-import Checkout from "./Pages/Checkout";
+//import Checkout from "./Pages/Checkout";
+import Checkout2 from "./Pages/Checkout2";
 
 const router = createBrowserRouter(
   [
@@ -30,9 +31,13 @@ const router = createBrowserRouter(
           path: "/products",
           element: <SearchResults />
         },
+        // {
+        //   path: "/checkout2",
+        //   element: <Checkout />
+        // },
         {
-          path: "/checkout",
-          element: <Checkout />
+          path: "/checkout2",
+          element: <Checkout2 />
         }
       ],
     },
