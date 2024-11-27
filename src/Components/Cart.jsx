@@ -1,25 +1,25 @@
 import React, { useContext, useState } from "react";
 import Button from "./Button";
 import { CartContext } from "./CartContext";
-import CheckoutForm from "./CheckoutForm";
 import { discountCalculation } from "./helpers";
 import QuantityInput from "./QuantityInput";
 import { Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Cart = ({onCheckout}) => {
+const Cart = ({ onCheckout }) => {
   const [orderIsCompleted, setOrderIsCompleted] = useState(false);
-  const [checkedOut, setCheckedOut] = useState(false);
   const { resetCart, cartIsLoading, cart, removeFromCart } =
     useContext(CartContext);
 
-  function toComplete() {
-    setOrderIsCompleted(true);
-  }
+  const navigate = useNavigate();
 
   function toCheckOut() {
-    setCheckedOut(true);
-    onCheckout();
+    if (onCheckout) {
+      onCheckout();
+      navigate("/cart");
+    } else {
+      navigate("/checkout2");
+    }
   }
 
   function totalPrice() {
@@ -42,7 +42,6 @@ const Cart = ({onCheckout}) => {
 
   function resetShop() {
     setOrderIsCompleted(false);
-    setCheckedOut(false);
     resetCart();
   }
 
@@ -57,21 +56,16 @@ const Cart = ({onCheckout}) => {
         onClick={() => resetShop()}
       ></Button>
     );
-  } else if (checkedOut) {
-    checkOutComponent = <CheckoutForm toComplete={toComplete}></CheckoutForm>;
   } else if (cart.length !== 0) {
     checkOutComponent = (
-      <Link to="/checkout2">
-       <Button
+      <Button
         onClick={() => toCheckOut()}
         btnVariant="btn-dark"
         type="button"
         text="Check-out"
       ></Button>
-      </Link>
-     
     );
-  } 
+  }
 
   return (
     <>
@@ -79,12 +73,6 @@ const Cart = ({onCheckout}) => {
         {cartIsLoading ? (
           <p className="text-center text-uppercase fw-semibold alert alert-warning">
             Your cart is loading
-          </p>
-        ) : checkedOut ? (
-          <p className="text-center text-uppercase fw-semibold">
-            {orderIsCompleted
-              ? "Your order has been completed"
-              : "Your order summary"}
           </p>
         ) : (
           <p className="text-center text-uppercase fw-semibold alert alert-primary">
@@ -152,7 +140,9 @@ const Cart = ({onCheckout}) => {
             </div>
           )}
         </div>
-        <div className="list-group-item d-flex justify-content-end">{checkOutComponent}</div>
+        <div className="list-group-item d-flex justify-content-end">
+          {checkOutComponent}
+        </div>
       </div>
     </>
   );

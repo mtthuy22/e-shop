@@ -1,16 +1,19 @@
-import React from "react";
+import { useContext } from "react";
 import { Image } from "react-bootstrap";
 import { discountCalculation } from "./helpers";
+import { CartContext } from "./CartContext";
 
-const CartSummary = ({ order }) => {
+const CartSummary = () => {
+  const { cart } = useContext(CartContext);
+
   function totalPrice() {
-    return order
+    return cart
       .reduce((total, item) => total + item.price * item.quantity, 0)
       .toFixed(2);
   }
 
   function totalDiscountPrice() {
-    return order
+    return cart
       .reduce(
         (total, item) =>
           total +
@@ -21,15 +24,13 @@ const CartSummary = ({ order }) => {
       .toFixed(2);
   }
   return (
-    <>
-      <p className="text-center text-uppercase fw-semibold">
-        Your order summary:
-      </p>
+    <div className="pt-1 px-2 pb-0">
+      <h2 className="text-uppercase fw-semibold h5">Items</h2>
       <div className="list-group list-group-flush mb-2">
-        {order.map((item) => (
+        {cart.map((item) => (
           <div
             key={item.id}
-            className="d-flex list-group-item row column-gap-2 pt-2"
+            className="d-flex justify-content-end list-group-item row column-gap-2 pt-2"
           >
             <div className="col-4 col-sm-1">
               <Image src={item.thumbnail} fluid />
@@ -53,7 +54,7 @@ const CartSummary = ({ order }) => {
             </div>
           </div>
         ))}
-        {order.length > 0 && (
+        {cart.length > 0 && (
           <div className="list-group-item row">
             <div className="text-end">
               <p className="text-secondary fs-6">
@@ -67,7 +68,7 @@ const CartSummary = ({ order }) => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
