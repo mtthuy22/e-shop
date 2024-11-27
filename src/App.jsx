@@ -1,13 +1,16 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import CartContextProvider from "./Components/CartContext";
+import FormContextProvider from "./Components/FormContext";
 import Home from "./Pages/Home";
 import ErrorPage from "./Pages/ErrorPage";
 import ProductDetail from "./Pages/ProductDetail";
 import ProductCategory from "./Pages/ProductCategory";
 import AllProducts from "./Pages/AllProducts";
 import SearchResults from "./Pages/SearchResults";
-//import Checkout from "./Pages/Checkout";
 import Checkout2 from "./Pages/Checkout2";
+import CartPage from "./Pages/CartPage";
+import Summary from "./Pages/Summary";
+import OrderFinished from "./Pages/OrderFinished";
 
 const router = createBrowserRouter(
   [
@@ -29,16 +32,24 @@ const router = createBrowserRouter(
         },
         {
           path: "/products",
-          element: <SearchResults />
+          element: <SearchResults />,
         },
-        // {
-        //   path: "/checkout2",
-        //   element: <Checkout />
-        // },
+        {
+          path: "/cart",
+          element: <CartPage />,
+        },
         {
           path: "/checkout2",
-          element: <Checkout2 />
-        }
+          element: <Checkout2 />,
+        },
+        {
+          path: "/order-summary",
+          element: <Summary />,
+        },
+        {
+          path: "/order-finished",
+          element: <OrderFinished />,
+        },
       ],
     },
   ],
@@ -48,7 +59,9 @@ const router = createBrowserRouter(
 function App() {
   return (
     <CartContextProvider>
-      <RouterProvider router={router} />
+      <FormContextProvider>
+        <RouterProvider router={router} />
+      </FormContextProvider>
     </CartContextProvider>
   );
 }
