@@ -10,8 +10,8 @@ import { CartContext } from "./CartContext";
 const CheckoutForm2 = ({ inputIsDisabled }) => {
   //context data
   const { formData, setFormData } = useContext(FormContext);
-  const cart = useContext(CartContext);
-  const orderData = cart.cart.map(({ id, title, quantity }) => ({
+  const { cart, resetCart } = useContext(CartContext);
+  const orderData = cart.map(({ id, title, quantity }) => ({
     id,
     title,
     quantity,
@@ -56,6 +56,7 @@ const CheckoutForm2 = ({ inputIsDisabled }) => {
           }),
         });
         sessionStorage.removeItem("checkoutData");
+        resetCart();
         navigate("/order-finished");
       } catch (error) {
         console.log("Error occured");
